@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Söz — Türkçe İncil uygulamasında bir ayet paylaşıldı. Uygulamayı indir ve oku.">
+<title>Söz — Bir Ayet Paylaşıldı</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0A0A08;--bg2:#111109;--surface:#1A1612;--surface2:#221E19;
+  --text:#E8E0D0;--text2:rgba(232,224,208,0.55);--text3:rgba(232,224,208,0.3);
+  --accent:#C4956A;--accent2:rgba(196,149,80,0.15);--accent3:rgba(196,149,80,0.07);
+  --border:rgba(196,149,80,0.18);--border2:rgba(196,149,80,0.07);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',serif;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:24px;
+}
+.card{
+  max-width:440px;width:100%;text-align:center;
+  background:var(--surface);border:0.5px solid var(--border);
+  border-radius:20px;padding:40px 32px;
+}
+.logo{font-size:28px;font-weight:300;color:var(--text);margin-bottom:4px}
+.logo .dot{color:var(--accent)}
+.lead{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:24px}
+.desc{font-size:16px;line-height:1.6;color:var(--text2);margin-bottom:28px}
+.btn-p{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:14px 28px;background:var(--accent);color:#0A0A08;
+  border-radius:10px;font-size:15px;font-family:'Cormorant Garamond',serif;
+  font-weight:500;letter-spacing:.04em;text-decoration:none;
+  transition:all .25s;margin-bottom:12px;
+}
+.btn-p:hover{background:#d4a57a;transform:translateY(-2px)}
+.btn-s{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:14px 28px;border:0.5px solid var(--border);color:var(--text2);
+  border-radius:10px;font-size:15px;font-family:'Cormorant Garamond',serif;
+  letter-spacing:.04em;text-decoration:none;transition:all .25s;
+}
+.btn-s:hover{border-color:var(--accent);color:var(--accent)}
+.hint{font-size:12px;color:var(--text3);margin-top:20px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">Söz<span class="dot">.</span></div>
+    <div class="lead">Bir Ayet Paylaşıldı</div>
+
+    <p class="desc">
+      Bu linki paylaşan kişi, Söz uygulamasında bir ayeti seninle paylaştı.
+      Ayeti okumak için uygulamayı aç veya indir.
+    </p>
+
+    <a class="btn-p" id="openAppBtn" href="#">Uygulamada Aç</a>
+    <a class="btn-s" href="https://apps.apple.com/app/idAPP_STORE_ID_BURAYA">App Store'dan İndir</a>
+    <a class="btn-s" href="https://play.google.com/store/apps/details?id=com.soz.incil">Google Play'den İndir</a>
+
+    <p class="hint">Söz — Türkçe İncil, günlük ayet, ezberleme ve daha fazlası.</p>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var bookId = params.get('bookId');
+      var chapter = params.get('chapter');
+      var verse = params.get('verse');
+
+      if (bookId && chapter && verse) {
+        var deepLink = 'soz://read?bookId=' + encodeURIComponent(bookId) +
+          '&chapter=' + encodeURIComponent(chapter) +
+          '&verse=' + encodeURIComponent(verse);
+        document.getElementById('openAppBtn').href = deepLink;
+      } else {
+        document.getElementById('openAppBtn').style.display = 'none';
+      }
+    })();
+  </script>
+</body>
+</html>

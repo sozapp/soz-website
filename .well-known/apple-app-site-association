@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAM_ID_BURAYA.com.soz.incil",
+        "paths": ["/read", "/read/*"]
+      }
+    ]
+  }
+}

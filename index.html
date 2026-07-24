@@ -3,823 +3,919 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Söz — Türkçe İncil uygulaması. Tüm Yeni Ahit, AI sohbet, Anadolu haritası, 7 dil desteği ve daha fazlası.">
+<meta name="description" content="Söz — Türkçe İncil uygulaması. Tüm Yeni Ahit, AI destekli rehber, Anadolu haritası, ayet ezberleme, günlük oyunlar ve daha fazlası.">
 <title>Söz — Türkçe İncil</title>
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sozapp.com/">
+<meta property="og:title" content="Söz — Türkçe İncil">
+<meta property="og:description" content="Tüm Yeni Ahit, AI destekli rehber, ruh haline göre ayet önerisi, günlük oyunlar ve 7 dil desteği — tek uygulamada.">
+<meta property="og:image" content="https://sozapp.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="tr_TR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Söz — Türkçe İncil">
+<meta name="twitter:description" content="Tüm Yeni Ahit, AI destekli rehber, ruh haline göre ayet önerisi, günlük oyunlar ve 7 dil desteği — tek uygulamada.">
+<meta name="twitter:image" content="https://sozapp.com/og-image.png">
+
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0A0A08;--bg2:#111109;--surface:#1A1612;
+:root {
+  --bg:#0A0A08;--bg2:#111109;--surface:#1A1612;--surface2:#221E19;
   --text:#E8E0D0;--text2:rgba(232,224,208,0.55);--text3:rgba(232,224,208,0.3);
-  --accent:#C4956A;--accent2:rgba(196,149,80,0.15);--accent3:rgba(196,149,80,0.08);
-  --border:rgba(196,149,80,0.2);--border2:rgba(196,149,80,0.08);
+  --accent:#C4956A;--accent2:rgba(196,149,80,0.15);--accent3:rgba(196,149,80,0.07);
+  --border:rgba(196,149,80,0.18);--border2:rgba(196,149,80,0.07);
+  --green:#7CB87C;--blue:#6BA3BE;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.3}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,8,0.88);backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border2);transition:all .3s}
-.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
-.nav-logo svg{width:26px;height:26px}
-.nav-logo-text{font-size:21px;font-weight:300;color:var(--text);letter-spacing:-.01em}
-.nav-links{display:flex;align-items:center;gap:34px;list-style:none}
-.nav-links a{font-size:13px;color:var(--text2);text-decoration:none;letter-spacing:.08em;transition:color .2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,8,0.85);backdrop-filter:blur(24px);border-bottom:0.5px solid var(--border2);transition:all .3s}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-text{font-size:20px;font-weight:300;color:var(--text);letter-spacing:-.01em}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:12px;color:var(--text2);text-decoration:none;letter-spacing:.1em;transition:color .2s;text-transform:uppercase}
 .nav-links a:hover{color:var(--accent)}
-.nav-cta{padding:9px 20px;border:0.5px solid var(--accent) !important;border-radius:7px;color:var(--accent) !important;transition:all .2s !important}
-.nav-cta:hover{background:var(--accent2) !important}
+.nav-cta{padding:8px 18px;border:0.5px solid var(--accent)!important;border-radius:7px;color:var(--accent)!important;transition:all .2s!important;letter-spacing:.05em!important;text-transform:none!important}
+.nav-cta:hover{background:var(--accent2)!important}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 60px;text-align:center;position:relative;overflow:hidden}
-.hero-glow{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(196,149,80,0.07) 0%,transparent 70%);pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:0.5px solid var(--border);border-radius:20px;font-size:11px;letter-spacing:.2em;color:var(--accent);margin-bottom:44px;animation:fadeUp .8s ease both}
-.pulse{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-.hero-icon{width:90px;height:90px;border-radius:20px;background:linear-gradient(145deg,#111109,#1a1610);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 32px;box-shadow:0 0 60px rgba(196,149,80,0.12);animation:fadeUp .8s ease .1s both}
-.hero-title{font-size:clamp(68px,11vw,128px);font-weight:300;letter-spacing:-.025em;line-height:1;color:var(--text);margin-bottom:6px;animation:fadeUp .8s ease .2s both}
-.hero-sub{font-size:clamp(17px,2.2vw,24px);font-weight:300;font-style:italic;color:var(--accent);letter-spacing:.07em;margin-bottom:28px;animation:fadeUp .8s ease .3s both}
-.hero-desc{font-size:clamp(15px,1.8vw,19px);color:var(--text2);max-width:520px;line-height:1.85;margin:0 auto 48px;animation:fadeUp .8s ease .4s both}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s ease .5s both}
-.btn-p{display:inline-flex;align-items:center;gap:9px;padding:15px 30px;background:var(--accent);color:#0A0A08;border-radius:10px;font-size:14px;font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.04em;text-decoration:none;transition:all .2s}
-.btn-p:hover{background:#d4a57a;transform:translateY(-2px);box-shadow:0 10px 30px rgba(196,149,80,.28)}
-.btn-s{display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border:0.5px solid var(--border);color:var(--text2);border-radius:10px;font-size:14px;font-family:'Cormorant Garamond',serif;letter-spacing:.04em;text-decoration:none;transition:all .2s}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(196,149,80,0.06) 0%,transparent 65%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;border:0.5px solid var(--border);border-radius:20px;font-size:10px;letter-spacing:.25em;color:var(--accent);margin-bottom:44px;animation:fadeUp .8s ease both;text-transform:uppercase}
+.pulse{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.hero-logo{width:88px;height:88px;border-radius:20px;background:linear-gradient(145deg,#131210,#1c1814);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;box-shadow:0 0 80px rgba(196,149,80,0.1),0 20px 60px rgba(0,0,0,0.4);animation:fadeUp .8s ease .1s both}
+.hero-title{font-size:clamp(72px,12vw,140px);font-weight:300;letter-spacing:-.025em;line-height:.95;color:var(--text);margin-bottom:8px;animation:fadeUp .8s ease .2s both}
+.hero-sub{font-size:clamp(16px,2vw,22px);font-weight:300;font-style:italic;color:var(--accent);letter-spacing:.08em;margin-bottom:24px;animation:fadeUp .8s ease .3s both}
+.hero-desc{font-size:clamp(15px,1.6vw,18px);color:var(--text2);max-width:500px;line-height:1.9;margin:0 auto 52px;animation:fadeUp .8s ease .4s both}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s ease .5s both}
+.btn-p{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--accent);color:#0A0A08;border-radius:10px;font-size:14px;font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.04em;text-decoration:none;transition:all .25s}
+.btn-p:hover{background:#d4a57a;transform:translateY(-2px);box-shadow:0 12px 36px rgba(196,149,80,.25)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border:0.5px solid var(--border);color:var(--text2);border-radius:10px;font-size:14px;font-family:'Cormorant Garamond',serif;letter-spacing:.04em;text-decoration:none;transition:all .25s}
 .btn-s:hover{border-color:var(--accent);color:var(--accent);background:var(--accent3)}
-.hero-quote{margin-top:72px;font-size:15px;font-style:italic;color:var(--text3);letter-spacing:.04em;animation:fadeUp .8s ease .6s both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero-quote{margin-top:80px;font-size:14px;font-style:italic;color:var(--text3);letter-spacing:.05em;animation:fadeUp .8s ease .6s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* PHONES */
-.phones-section{padding:60px 24px 100px;display:flex;justify-content:center;align-items:flex-end;gap:20px;overflow:hidden;position:relative}
-.phones-section::before{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,var(--bg),transparent);pointer-events:none;z-index:2}
-.phone-mock{flex-shrink:0;border-radius:36px;overflow:hidden;border:0.5px solid rgba(196,149,80,0.2);box-shadow:0 24px 80px rgba(0,0,0,0.6),0 0 0 0.5px rgba(196,149,80,0.08);transition:transform .4s ease;position:relative}
-.phone-mock:hover{transform:translateY(-10px) !important}
-.pm-sm{width:190px;transform:translateY(48px) rotate(-3deg)}
-.pm-sm:hover{transform:translateY(38px) rotate(-3deg) !important}
-.pm-md{width:215px;transform:translateY(20px) rotate(-1deg)}
-.pm-md:hover{transform:translateY(10px) rotate(-1deg) !important}
-.pm-lg{width:240px;transform:translateY(0);z-index:3}
-.pm-xl{width:215px;transform:translateY(20px) rotate(1deg)}
-.pm-xl:hover{transform:translateY(10px) rotate(1deg) !important}
-.pm-xs{width:190px;transform:translateY(48px) rotate(3deg)}
-.pm-xs:hover{transform:translateY(38px) rotate(3deg) !important}
-.phone-badge{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(10,10,8,0.85);border:0.5px solid rgba(196,149,80,0.3);border-radius:20px;padding:4px 14px;font-size:10px;letter-spacing:.12em;color:var(--accent);white-space:nowrap;backdrop-filter:blur(8px);z-index:4}
+.stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border2);border:0.5px solid var(--border2);border-radius:14px;overflow:hidden;margin:80px 48px 0}
+.stat{background:var(--bg);padding:24px 16px;text-align:center}
+.stat-num{font-size:28px;font-weight:300;color:var(--accent);display:block;letter-spacing:-.02em}
+.stat-label{font-size:11px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;display:block}
 
-/* PHONE SCREENS */
-.screen-home{background:#F5F0E8;padding:20px 16px 16px;min-height:460px;display:flex;flex-direction:column}
-.sh-status{display:flex;justify-content:space-between;font-size:9px;color:rgba(26,18,8,.25);margin-bottom:14px;font-family:sans-serif}
-.sh-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.sh-logo{display:flex;align-items:center;gap:7px}
-.sh-logo-text{font-size:28px;font-weight:300;color:#1A1208;letter-spacing:-.02em}
-.sh-pro{font-size:8px;padding:2px 7px;border:0.5px solid rgba(196,149,80,.5);border-radius:4px;color:#C4956A;letter-spacing:1px}
-.sh-verse-card{background:rgba(196,149,80,.07);border:0.5px solid rgba(196,149,80,.25);border-left:3px solid #C4956A;border-radius:10px;padding:13px 14px;margin-bottom:11px}
-.sh-verse-label{font-size:7px;letter-spacing:.2em;color:#C4956A;margin-bottom:6px}
-.sh-verse-text{font-size:12px;font-style:italic;color:#1A1208;line-height:1.6;margin-bottom:6px}
-.sh-verse-ref{font-size:9px;color:#C4956A}
-.sh-verse-actions{display:flex;gap:6px;margin-top:9px}
-.sh-va{font-size:8px;padding:4px 9px;border:0.5px solid rgba(196,149,80,.3);border-radius:6px;color:#C4956A}
-.sh-plan-card{background:rgba(196,149,80,.05);border:0.5px solid rgba(196,149,80,.2);border-radius:10px;padding:12px 14px;margin-bottom:10px}
-.sh-plan-title{font-size:12px;font-weight:500;color:#1A1208}
-.sh-plan-sub{font-size:9px;color:#C4956A;margin-top:2px;margin-bottom:7px}
-.sh-progress{height:3px;background:rgba(196,149,80,.15);border-radius:2px}
-.sh-progress-fill{height:100%;background:#C4956A;border-radius:2px;width:35%}
-.sh-plan-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
-.sh-plan-day{font-size:9px;color:rgba(26,18,8,.5)}
-.sh-streak{font-size:9px;color:#C4956A;display:flex;align-items:center;gap:3px}
-.sh-tabs{display:flex;justify-content:space-around;padding:10px 0 4px;border-top:0.5px solid rgba(196,149,80,.12);margin-top:auto}
-.sh-tab{font-size:8px;color:rgba(26,18,8,.3);text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px}
-.sh-tab.on{color:#C4956A}
-.sh-tab-dot{width:16px;height:3px;border-radius:2px;background:currentColor;opacity:.4}
-.sh-tab.on .sh-tab-dot{opacity:1}
+.slabel{font-size:10px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;display:block;margin-bottom:16px}
+.stitle{font-size:clamp(32px,4vw,52px);font-weight:300;letter-spacing:-.02em;line-height:1.15;margin-bottom:16px}
+.sdesc{font-size:17px;color:var(--text2);line-height:1.8;font-style:italic;max-width:560px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
-.screen-read{background:#F4ECD8;padding:18px 14px 14px;min-height:460px;display:flex;flex-direction:column}
-.sr-status{display:flex;justify-content:space-between;font-size:9px;color:rgba(92,74,30,.3);margin-bottom:12px;font-family:sans-serif}
-.sr-header{text-align:center;margin-bottom:4px}
-.sr-title{font-size:16px;font-weight:400;color:#5C4A1E}
-.sr-bolumsub{font-size:9px;color:#C4956A;letter-spacing:.08em;display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:8px}
-.sr-toolbar{display:flex;justify-content:space-around;padding:7px 0;border-top:0.5px solid rgba(196,149,80,.2);border-bottom:0.5px solid rgba(196,149,80,.2);margin-bottom:10px}
-.sr-tool{font-size:8px;color:rgba(92,74,30,.4);text-align:center}
-.sr-tool.on{color:#C4956A}
-.sr-progress{height:2px;background:rgba(196,149,80,.15);margin-bottom:10px}
-.sr-progress-fill{height:100%;background:#C4956A;width:28%;border-radius:1px}
-.sr-verse{display:flex;gap:10px;padding:8px 0;border-bottom:0.5px solid rgba(92,74,30,.08)}
-.sr-vnum{font-size:10px;color:#C4956A;min-width:18px;padding-top:2px;text-align:right}
-.sr-vtext{font-size:13px;color:#5C4A1E;line-height:1.7}
-.sr-vtext.dim{color:rgba(92,74,30,.5)}
-.sr-highlight{background:rgba(196,149,80,.15);border-left:2.5px solid rgba(196,149,80,.5);border-radius:0 6px 6px 0;padding-left:8px}
-.sr-tabs{display:flex;justify-content:space-around;padding:10px 0 3px;border-top:0.5px solid rgba(92,74,30,.1);margin-top:auto}
-.sr-tab{font-size:8px;color:rgba(92,74,30,.3)}
-.sr-tab.on{color:#C4956A}
+.phones-section{padding:80px 0;overflow:hidden;position:relative}
+.phones-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(196,149,80,0.05) 0%,transparent 70%);pointer-events:none}
+.phones-wrap{display:flex;gap:20px;align-items:center;justify-content:center;padding:0 48px;overflow-x:auto;scrollbar-width:none}
+.phones-wrap::-webkit-scrollbar{display:none}
+.phone-mock{flex-shrink:0;border-radius:28px;border:0.5px solid var(--border);overflow:hidden;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.5),0 0 0 0.5px var(--border2);transition:transform .3s ease}
+.pm-lg{width:220px;height:440px}
+.pm-md{width:195px;height:390px}
+.pm-sm{width:170px;height:340px}
 
-.screen-card{background:#0A0A08;padding:18px 14px 14px;min-height:460px;display:flex;flex-direction:column}
-.sc-status{display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.2);margin-bottom:12px;font-family:sans-serif}
-.sc-header{font-size:9px;letter-spacing:.15em;color:#C4956A;margin-bottom:14px;text-transform:uppercase}
-.sc-card-preview{background:linear-gradient(145deg,#1A1208,#2D1F0A);border:0.5px solid rgba(196,149,80,.25);border-radius:12px;padding:18px 16px;margin-bottom:14px;flex:1;display:flex;flex-direction:column;justify-content:space-between;position:relative}
-.sc-logo-row{display:flex;align-items:center;gap:5px;margin-bottom:12px}
-.sc-logo-text{font-size:10px;letter-spacing:.3em;color:rgba(196,149,80,.7)}
-.sc-verse-text{font-size:13px;font-style:italic;color:#E8E0D0;line-height:1.7;flex:1}
-.sc-verse-ref{font-size:9px;letter-spacing:.15em;color:#C4956A;margin-top:10px}
-.sc-watermark{font-size:8px;letter-spacing:.1em;color:rgba(196,149,80,.3);margin-top:8px;text-align:right}
-.sc-themes{display:flex;gap:9px;margin-bottom:14px;align-items:center}
-.sc-theme-label{font-size:9px;color:rgba(255,255,255,.3);margin-right:2px}
-.sc-theme{width:26px;height:26px;border-radius:8px;flex-shrink:0}
-.sc-theme.on{border:2px solid #C4956A}
-.sc-share-btn{background:#C4956A;border-radius:9px;padding:11px;text-align:center;font-size:11px;color:#0A0A08;letter-spacing:.06em;font-weight:500}
-.sc-tabs{display:flex;justify-content:space-around;padding:10px 0 3px;border-top:0.5px solid rgba(196,149,80,.1);margin-top:auto}
-.sc-tab{font-size:8px;color:rgba(255,255,255,.25)}
-.sc-tab.on{color:#C4956A}
+.screen{width:100%;height:100%;background:var(--bg);display:flex;flex-direction:column;font-family:'Cormorant Garamond',serif}
+.screen-photo{padding:0!important}
+.screen-photo img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.phone-status{display:flex;justify-content:space-between;padding:10px 14px 4px;font-size:9px;color:var(--text3)}
+.phone-badge{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);background:var(--surface);border:0.5px solid var(--border);border-radius:10px;padding:4px 12px;font-size:9px;letter-spacing:.1em;color:var(--accent);white-space:nowrap;text-transform:uppercase}
 
-.screen-search{background:#0A0A08;padding:18px 14px 14px;min-height:460px;display:flex;flex-direction:column}
-.ss-status{display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.2);margin-bottom:12px;font-family:sans-serif}
-.ss-input-wrap{display:flex;align-items:center;gap:8px;background:#1A1612;border:0.5px solid #C4956A;border-radius:10px;padding:9px 12px;margin-bottom:10px}
-.ss-input-text{font-size:13px;font-style:italic;color:#E8E0D0;flex:1}
-.ss-count{font-size:9px;color:rgba(196,149,80,.6);margin-bottom:10px}
-.ss-result{padding:10px 0;border-bottom:0.5px solid rgba(196,149,80,.08);display:flex;gap:8px}
-.ss-result-bar{width:2px;background:#C4956A;border-radius:1px;flex-shrink:0;opacity:.6}
-.ss-result-ref{font-size:9px;color:#C4956A;letter-spacing:.1em;margin-bottom:4px}
-.ss-result-text{font-size:12px;color:rgba(232,224,208,.7);line-height:1.6}
-.ss-result-text em{color:#C4956A;font-style:normal;font-weight:500}
-.ss-tabs{display:flex;justify-content:space-around;padding:10px 0 3px;border-top:0.5px solid rgba(196,149,80,.08);margin-top:auto}
-.ss-tab{font-size:8px;color:rgba(255,255,255,.25)}
-.ss-tab.on{color:#C4956A}
+.screen-home{padding:8px 12px 0;gap:6px}
+.sh-verse-card{background:var(--surface);border-radius:10px;padding:12px;border:0.5px solid var(--border);margin-top:4px}
+.sh-verse-label{font-size:8px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:5px}
+.sh-verse-text{font-size:11px;font-style:italic;color:var(--text);line-height:1.6}
+.sh-verse-ref{font-size:8px;color:var(--accent);margin-top:4px}
+.sh-mood-card{background:rgba(196,149,80,0.06);border-radius:8px;padding:9px 10px;border:0.5px solid rgba(196,149,80,0.2);display:flex;align-items:center;gap:7px;margin-top:6px}
+.sh-mood-icon{width:26px;height:26px;border-radius:7px;background:rgba(196,149,80,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.sh-mood-badge{font-size:7px;background:rgba(196,149,80,0.12);border:0.5px solid var(--border);border-radius:4px;padding:2px 5px;color:var(--accent)}
+.sh-tabs{display:flex;border-top:0.5px solid var(--border2);margin-top:auto;padding:8px 0 4px}
+.sh-tab{flex:1;text-align:center;font-size:7px;color:var(--text3)}
+.sh-tab.on{color:var(--accent)}
 
-.screen-church{background:#F5F0E8;padding:18px 14px 14px;min-height:460px;display:flex;flex-direction:column}
-.sch-status{display:flex;justify-content:space-between;font-size:9px;color:rgba(26,18,8,.25);margin-bottom:12px;font-family:sans-serif}
-.sch-back{font-size:9px;color:rgba(26,18,8,.4);margin-bottom:8px}
-.sch-title{font-size:13px;font-weight:500;color:#1A1208;text-align:center;margin-bottom:14px}
-.sch-card{background:rgba(196,149,80,.06);border:0.5px solid rgba(196,149,80,.2);border-radius:12px;padding:14px}
-.sch-group-name{font-size:18px;font-weight:300;color:#1A1208;margin-bottom:2px}
-.sch-church{font-size:10px;color:rgba(26,18,8,.4);font-style:italic;margin-bottom:10px}
-.sch-code-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.sch-code{font-size:11px;color:rgba(26,18,8,.5)}
-.sch-copy{font-size:9px;color:#C4956A}
-.sch-week{background:rgba(196,149,80,.08);border-radius:7px;padding:7px 10px;font-size:9px;color:#C4956A;margin-bottom:12px}
-.sch-members-title{font-size:10px;font-weight:500;color:#1A1208;margin-bottom:8px}
-.sch-member{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:0.5px solid rgba(196,149,80,.1)}
-.sch-member:last-child{border:none}
-.sch-avatar{width:20px;height:20px;border-radius:50%;background:rgba(196,149,80,.15);display:flex;align-items:center;justify-content:center;font-size:8px;color:#C4956A;flex-shrink:0}
-.sch-bar-wrap{flex:1;height:3px;background:rgba(196,149,80,.15);border-radius:2px;overflow:hidden}
-.sch-bar-fill{height:100%;background:#C4956A;border-radius:2px}
-.sch-pct{font-size:9px;color:rgba(26,18,8,.4);min-width:28px;text-align:right}
-.sch-check{font-size:9px;color:#C4956A}
-.sch-tabs{display:flex;justify-content:space-around;padding:10px 0 3px;border-top:0.5px solid rgba(196,149,80,.12);margin-top:auto}
-.sch-tab{font-size:8px;color:rgba(26,18,8,.3)}
-.sch-tab.on{color:#C4956A}
+.screen-read{padding:8px 12px;gap:5px}
+.sr-progress{height:1.5px;background:var(--border);border-radius:1px;margin:4px 0}
+.sr-progress-fill{height:100%;width:35%;background:var(--accent);border-radius:1px}
+.sr-verse{padding:4px 0;border-bottom:0.5px solid var(--border2)}
+.sr-vnum{font-size:8px;color:var(--accent);margin-right:4px}
+.sr-vtext{font-size:10px;color:var(--text);line-height:1.65;font-style:italic;display:inline}
+.sr-highlight{background:rgba(196,149,80,0.15);border-radius:2px;padding:0 2px}
+.sr-toolbar{display:flex;justify-content:space-around;padding:8px 0 2px;border-top:0.5px solid var(--border2);margin-top:auto}
+.sr-tool{font-size:7px;color:var(--text3);text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px}
+.sr-tool-dot{width:14px;height:14px;border-radius:4px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:8px}
 
-/* SECTIONS */
-.sec{padding:110px 24px;max-width:1100px;margin:0 auto}
-.slabel{font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:18px;display:block}
-.stitle{font-size:clamp(34px,5vw,62px);font-weight:300;letter-spacing:-.02em;color:var(--text);line-height:1.1;margin-bottom:18px}
-.sdesc{font-size:17px;color:var(--text2);line-height:1.85;max-width:540px;font-style:italic}
+.screen-mood{padding:8px 12px;gap:6px}
+.sm-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.sm-chip{font-size:8px;background:var(--surface);border:0.5px solid var(--border);border-radius:10px;padding:3px 8px;color:var(--text2)}
+.sm-input{background:var(--surface);border:0.5px solid var(--border);border-radius:8px;padding:8px;font-size:9px;color:var(--text3);font-style:italic;min-height:44px;margin-top:4px}
+.sm-btn{background:var(--accent);border-radius:7px;padding:8px;text-align:center;font-size:9px;color:#0A0A08;margin-top:6px}
+.sm-verse-item{background:rgba(196,149,80,0.05);border-radius:6px;padding:7px;border:0.5px solid var(--border);margin-top:5px}
+.sm-vref{font-size:7px;color:var(--accent);margin-bottom:3px}
+.sm-vtext{font-size:9px;font-style:italic;color:var(--text);line-height:1.5}
 
-/* FEATURES */
-.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border2);border:0.5px solid var(--border2);border-radius:16px;overflow:hidden;margin-top:60px}
-.fcard{background:var(--bg2);padding:38px 34px;transition:background .3s}
+.screen-games{padding:8px 12px;gap:6px}
+.sg-card{background:var(--surface);border-radius:9px;padding:12px;border:0.5px solid var(--border);margin-top:4px}
+.sg-q-label{font-size:7px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.sg-quote{font-size:16px;color:rgba(196,149,80,0.2);line-height:.8}
+.sg-verse{font-size:10px;font-style:italic;color:var(--text);line-height:1.55;margin:3px 0}
+.sg-ref{font-size:7px;color:var(--accent)}
+.sg-options{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:7px}
+.sg-opt{background:var(--bg);border:0.5px solid var(--border);border-radius:6px;padding:5px 7px;font-size:8px;color:var(--text2)}
+.sg-opt.correct{background:rgba(124,184,124,0.1);border-color:rgba(124,184,124,0.4);color:#7CB87C}
+
+.screen-mem{padding:8px 12px;gap:6px}
+.smem-levels{display:flex;gap:3px;margin-top:4px}
+.smem-lev{flex:1;background:var(--surface);border-radius:5px;padding:6px;text-align:center;border:0.5px solid var(--border)}
+.smem-lev-n{font-size:14px;color:var(--accent);font-weight:300}
+.smem-lev-t{font-size:6px;color:var(--text3);margin-top:1px}
+.smem-due{background:rgba(196,149,80,0.06);border-radius:7px;padding:9px;border:0.5px solid rgba(196,149,80,0.2);margin-top:6px}
+.smem-due-t{font-size:7px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:5px}
+.smem-item{display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:0.5px solid var(--border2)}
+.smem-dots{display:flex;gap:2px}
+.smem-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.smem-dot.empty{background:var(--border)}
+.smem-ref{font-size:8px;color:var(--accent);flex:1}
+.smem-btn{font-size:7px;color:var(--accent);border:0.5px solid var(--border);border-radius:5px;padding:2px 6px}
+
+.features-section{padding:80px 48px}
+.features-header{text-align:center;margin-bottom:56px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border2);border:0.5px solid var(--border2);border-radius:16px;overflow:hidden}
+.fcard{background:var(--bg);padding:28px 24px;transition:background .2s}
 .fcard:hover{background:var(--surface)}
-.ficon{width:46px;height:46px;border-radius:11px;background:var(--accent2);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:22px}
-.ftitle{font-size:21px;font-weight:400;color:var(--text);margin-bottom:9px;letter-spacing:-.01em}
+.ficon{width:40px;height:40px;border-radius:10px;background:var(--accent3);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.ftitle{font-size:17px;font-weight:400;color:var(--text);margin-bottom:8px;letter-spacing:-.01em}
 .fdesc{font-size:14px;color:var(--text2);line-height:1.75;font-style:italic}
+.fnew{display:inline-block;font-size:8px;letter-spacing:.15em;color:var(--accent);background:var(--accent3);border:0.5px solid var(--border);border-radius:4px;padding:1px 6px;text-transform:uppercase;margin-bottom:8px}
 
-/* DIVIDER */
-.vdiv{text-align:center;padding:70px 24px;position:relative}
-.vdiv::before{content:'';position:absolute;top:50%;left:5%;right:5%;height:0.5px;background:var(--border2)}
-.vdiv blockquote{position:relative;display:inline-block;background:var(--bg);padding:0 36px;font-size:clamp(19px,2.8vw,30px);font-style:italic;font-weight:300;color:var(--text2);line-height:1.6;max-width:680px}
-.vdiv cite{display:block;font-size:12px;letter-spacing:.15em;color:var(--accent);margin-top:14px;font-style:normal}
+.mood-section{padding:80px 48px;position:relative}
+.mood-section::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(196,149,80,0.04) 0%,transparent 60%);pointer-events:none}
+.mood-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;max-width:1100px;margin:0 auto}
+.mood-steps{display:flex;flex-direction:column;gap:20px;margin-top:32px}
+.mood-step{display:flex;gap:16px;align-items:flex-start}
+.mood-step-num{width:30px;height:30px;border-radius:50%;border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--accent);flex-shrink:0;margin-top:2px}
+.mood-step-t{font-size:17px;color:var(--text);margin-bottom:3px}
+.mood-step-d{font-size:14px;color:var(--text2);font-style:italic;line-height:1.7}
 
-/* MAP */
-.map-section{padding:120px 24px;background:var(--bg2);border-top:0.5px solid var(--border2);border-bottom:0.5px solid var(--border2)}
+.games-section{padding:80px 48px;background:var(--surface);border-top:0.5px solid var(--border2);border-bottom:0.5px solid var(--border2)}
+.games-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;max-width:1100px;margin-left:auto;margin-right:auto}
+.game-card{background:var(--bg);border-radius:14px;padding:24px;border:0.5px solid var(--border);transition:all .25s}
+.game-card:hover{transform:translateY(-3px);border-color:rgba(196,149,80,0.35);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.game-badge{font-size:9px;letter-spacing:.15em;text-transform:uppercase;border-radius:5px;padding:2px 8px;display:inline-block;margin-bottom:14px}
+.game-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.game-title{font-size:18px;color:var(--text);margin-bottom:6px}
+.game-desc{font-size:13px;color:var(--text2);font-style:italic;line-height:1.65}
+.game-note{font-size:12px;color:var(--accent);margin-top:14px}
+
+.mem-section{padding:80px 48px;max-width:1100px;margin:0 auto}
+.mem-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.mem-exercises{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.mem-ex{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border-radius:10px;border:0.5px solid var(--border)}
+.mem-ex-num{width:26px;height:26px;border-radius:50%;border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--accent);flex-shrink:0}
+.mem-ex-t{font-size:15px;color:var(--text)}
+.mem-ex-d{font-size:12px;color:var(--text2);font-style:italic;margin-top:1px}
+.mem-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.mem-lev-card{background:var(--surface);border-radius:10px;padding:18px;border:0.5px solid var(--border);text-align:center}
+.mem-lev-num{font-size:28px;font-weight:300;color:var(--accent);display:block}
+.mem-lev-label{font-size:11px;color:var(--text2);font-style:italic;margin-top:3px;display:block}
+
+.map-section{padding:80px 48px;background:var(--surface);border-top:0.5px solid var(--border2);border-bottom:0.5px solid var(--border2)}
 .map-inner{max-width:1100px;margin:0 auto}
-.map-header{text-align:center;margin-bottom:72px}
-.map-container{display:grid;grid-template-columns:1fr 380px;gap:56px;align-items:start}
-.map-svg-box{background:var(--surface);border:0.5px solid var(--border);border-radius:16px;padding:28px;position:relative;overflow:hidden}
-.map-svg-box svg{width:100%;height:auto;display:block}
-.map-legend{display:flex;align-items:center;gap:8px;margin-top:14px;padding:0 2px}
-.map-legend-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;flex-shrink:0}
-.map-legend-text{font-size:11px;color:var(--text3);font-style:italic}
-.map-pin-group{cursor:pointer}
-.loc-cards{display:flex;flex-direction:column;gap:0}
-.loc-card{padding:16px 20px;border:0.5px solid var(--border2);cursor:pointer;transition:all .25s;border-bottom:none;position:relative}
-.loc-card:first-child{border-radius:12px 12px 0 0}
-.loc-card:last-child{border-radius:0 0 12px 12px;border-bottom:0.5px solid var(--border2)}
-.loc-card:hover,.loc-card.active{background:var(--accent3);border-color:var(--border)}
-.loc-card.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);border-radius:3px 0 0 3px}
-.loc-card-top{display:flex;align-items:center;justify-content:space-between}
-.loc-name{font-size:16px;font-weight:400;color:var(--text)}
-.loc-modern{font-size:11px;color:var(--text3);font-style:italic}
-.loc-ref{font-size:10px;color:var(--accent);letter-spacing:.08em;margin-top:3px}
-.loc-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-top:7px;font-style:italic;display:none}
-.loc-card.active .loc-desc{display:block}
+.map-header{text-align:center;margin-bottom:48px}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border2);border:0.5px solid var(--border2);border-radius:16px;overflow:hidden;margin-top:72px}
-.stat{background:var(--bg2);padding:38px 28px;text-align:center}
-.stat-n{font-size:46px;font-weight:300;color:var(--accent);letter-spacing:-.03em;line-height:1;margin-bottom:7px}
-.stat-l{font-size:13px;color:var(--text2);font-style:italic}
+.map-locations{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:24px}
+.loc-card{background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s}
+.loc-card:hover,.loc-card.active{border-color:rgba(196,149,80,0.4);background:var(--accent3)}
+.loc-name{font-size:14px;color:var(--text);margin-bottom:3px}
+.loc-ref{font-size:11px;color:var(--accent);font-style:italic}
+.loc-desc{font-size:11px;color:var(--text2);font-style:italic;margin-top:4px;line-height:1.5}
 
-/* TESTIMONIALS */
-.testi{padding:110px 24px;background:var(--bg2);border-top:0.5px solid var(--border2)}
-.testi-inner{max-width:1100px;margin:0 auto}
-.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-top:60px}
-.tcard{background:var(--surface);border:0.5px solid var(--border2);border-radius:13px;padding:30px 26px;transition:border-color .3s}
-.tcard:hover{border-color:var(--border)}
-.tstars{color:var(--accent);font-size:13px;letter-spacing:3px;margin-bottom:14px}
-.ttext{font-size:15px;font-style:italic;color:var(--text2);line-height:1.75;margin-bottom:18px}
-.tauthor{font-size:12px;color:var(--text3);letter-spacing:.08em}
+.music-section{padding:80px 48px;max-width:1100px;margin:0 auto}
+.music-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.music-tracks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}
+.music-track{background:var(--surface);border-radius:10px;padding:14px;border:0.5px solid var(--border);text-align:center;transition:all .2s}
+.music-track:hover{border-color:rgba(196,149,80,0.35);background:var(--accent3)}
+.music-track-icon{font-size:22px;margin-bottom:6px}
+.music-track-name{font-size:12px;color:var(--text)}
+.music-track-desc{font-size:10px;color:var(--text3);font-style:italic;margin-top:2px}
 
-/* CTA */
-.cta{padding:150px 24px;text-align:center;position:relative;overflow:hidden}
-.cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(196,149,80,0.05) 0%,transparent 70%);pointer-events:none}
-.cta-title{font-size:clamp(38px,6vw,76px);font-weight:300;color:var(--text);letter-spacing:-.02em;line-height:1.1;margin-bottom:22px}
-.cta-desc{font-size:17px;color:var(--text2);font-style:italic;margin-bottom:44px}
-.store-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.sbtn{display:inline-flex;align-items:center;gap:13px;padding:15px 26px;background:var(--surface);border:0.5px solid var(--border);border-radius:13px;text-decoration:none;transition:all .3s;min-width:170px}
-.sbtn:hover{border-color:var(--accent);background:var(--accent3);transform:translateY(-2px)}
-.sbtn-small{font-size:10px;color:var(--text3);letter-spacing:.08em;display:block;margin-bottom:2px}
-.sbtn-big{font-size:17px;color:var(--text);font-weight:400;display:block}
+.vdiv{padding:0 48px;margin:0 auto;max-width:800px;text-align:center}
+blockquote{font-size:clamp(20px,3vw,32px);font-style:italic;font-weight:300;color:var(--text2);line-height:1.7;position:relative;padding:48px 0}
+blockquote::before{content:'"';position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:80px;color:rgba(196,149,80,0.1);font-style:normal;line-height:1}
+blockquote cite{display:block;font-size:13px;color:var(--accent);letter-spacing:.1em;margin-top:16px;font-style:normal;text-transform:uppercase}
+.vdiv-line{height:0.5px;background:var(--border2);margin:0 48px}
 
-/* FOOTER */
-footer{padding:56px 48px 36px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;max-width:1100px;margin:0 auto}
-.fbrand p{font-size:13px;color:var(--text3);font-style:italic;line-height:1.7;margin-top:11px;max-width:250px}
-.fcol h5{font-size:10px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
-.fcol ul{list-style:none}
-.fcol li{margin-bottom:9px}
-.fcol a{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s}
-.fcol a:hover{color:var(--text2)}
-.fbot{max-width:1100px;margin:0 auto;padding:22px 48px;border-top:0.5px solid var(--border2);display:flex;justify-content:space-between;align-items:center}
-.fbot p{font-size:12px;color:var(--text3);font-style:italic}
+.lang-section{padding:80px 48px;background:var(--surface);border-top:0.5px solid var(--border2);border-bottom:0.5px solid var(--border2)}
+.lang-inner{max-width:900px;margin:0 auto;text-align:center}
+.lang-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:40px}
+.lang-pill{display:flex;align-items:center;gap:10px;padding:12px 20px;background:var(--bg);border:0.5px solid var(--border);border-radius:12px;transition:all .2s}
+.lang-pill:hover{border-color:rgba(196,149,80,0.35);background:var(--accent3)}
+.lang-flag{font-size:20px}
+.lang-name{font-size:15px;color:var(--text)}
+.lang-native{font-size:12px;color:var(--text3);font-style:italic}
 
-/* PRIVACY */
-#gizlilik{padding:72px 24px;max-width:680px;margin:0 auto;display:none}
+.premium-section{padding:80px 48px;max-width:900px;margin:0 auto;text-align:center}
+.premium-card{background:var(--surface);border-radius:20px;padding:48px;border:0.5px solid var(--border);position:relative;overflow:hidden}
+.premium-card::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(196,149,80,0.07) 0%,transparent 70%);pointer-events:none}
+.premium-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:36px 0;text-align:left}
+.premium-feature{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--text2)}
+.pf-check{width:22px;height:22px;border-radius:50%;background:rgba(196,149,80,0.1);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:var(--accent)}
+.premium-price{display:flex;justify-content:center;gap:20px;margin:28px 0}
+.price-card{background:var(--bg);border-radius:12px;padding:20px 28px;border:0.5px solid var(--border);text-align:center}
+.price-card.featured{border-color:rgba(196,149,80,0.4);background:rgba(196,149,80,0.04)}
+.price-amount{font-size:28px;font-weight:300;color:var(--accent)}
+.price-period{font-size:12px;color:var(--text3);margin-top:4px}
+.price-save{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-top:6px}
+
+footer{border-top:0.5px solid var(--border2);padding:60px 48px 32px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
+.fbrand{max-width:280px}
+.fbrand-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.fbrand-name{font-size:22px;font-weight:300;color:var(--text)}
+.fbrand-desc{font-size:14px;color:var(--text3);line-height:1.8;font-style:italic}
+.fbrand-email{font-size:13px;color:var(--accent);text-decoration:none;display:block;margin-top:12px}
+.fcol-title{font-size:11px;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
+.fcol a{display:block;font-size:14px;color:var(--text3);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.fcol a:hover{color:var(--accent)}
+.fbot{display:flex;justify-content:space-between;align-items:center;padding-top:32px;margin-top:32px;border-top:0.5px solid var(--border2)}
+.fbot-copy{font-size:12px;color:var(--text3)}
+.fbot-verse{font-size:12px;color:var(--text3);font-style:italic}
+
+#gizlilik{display:none;background:var(--surface);border-radius:12px;padding:32px;margin:20px 48px;border:0.5px solid var(--border);font-size:14px;color:var(--text2);line-height:1.8}
 #gizlilik.on{display:block}
+#gizlilik h3{font-size:18px;color:var(--text);margin-bottom:16px;font-weight:300}
+#gizlilik p{margin-bottom:12px;font-style:italic}
 
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease, transform .65s ease}
-.reveal.vis{opacity:1;transform:translateY(0)}
+.waitlist-section{padding:80px 48px;text-align:center}
+.waitlist-card{max-width:560px;margin:0 auto;background:var(--surface);border-radius:20px;padding:48px;border:0.5px solid var(--border);position:relative;overflow:hidden}
+.waitlist-card::before{content:'';position:absolute;top:-100px;left:-100px;width:280px;height:280px;background:radial-gradient(circle,rgba(196,149,80,0.07) 0%,transparent 70%);pointer-events:none}
+.waitlist-form{display:flex;flex-direction:column;gap:12px;margin-top:32px}
+.waitlist-platforms{display:flex;gap:10px;justify-content:center;margin-bottom:4px}
+.wp-opt{padding:8px 16px;border:0.5px solid var(--border);border-radius:8px;font-size:13px;color:var(--text2);cursor:pointer;transition:all .2s;background:var(--bg)}
+.wp-opt.active{border-color:var(--accent);color:var(--accent);background:var(--accent3)}
+.waitlist-input{background:var(--bg);border:0.5px solid var(--border);border-radius:10px;padding:14px 18px;font-size:15px;color:var(--text);font-family:'Cormorant Garamond',serif}
+.waitlist-input::placeholder{color:var(--text3)}
+.waitlist-input:focus{outline:none;border-color:var(--accent)}
+.waitlist-btn{background:var(--accent);color:#0A0A08;border:none;border-radius:10px;padding:14px;font-size:15px;font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.04em;cursor:pointer;transition:all .25s}
+.waitlist-btn:hover{background:#d4a57a}
+.waitlist-btn:disabled{opacity:.6;cursor:default}
+.waitlist-msg{font-size:14px;font-style:italic;margin-top:8px;min-height:20px}
+.waitlist-msg.ok{color:var(--green)}
+.waitlist-msg.err{color:#c47a7a}
+.waitlist-count{font-size:12px;color:var(--text3);margin-top:20px;letter-spacing:.05em}
 
-/* MOBILE */
-@media(max-width:900px){.map-container{grid-template-columns:1fr}}
-@media(max-width:768px){
-  nav{padding:14px 18px}
-  .nav-links{display:none}
-  footer{grid-template-columns:1fr 1fr}
+@media(max-width:900px){
+  nav{padding:14px 20px}.nav-links{display:none}
+  .features-section,.games-section,.mood-section,.mem-section,.music-section,.lang-section,.premium-section,.map-section{padding:60px 20px}
+  .stats-row{grid-template-columns:repeat(3,1fr);margin:60px 20px 0}
+  .mood-inner,.mem-inner,.music-inner{grid-template-columns:1fr;gap:40px}
+  .games-grid{grid-template-columns:1fr}
+  .premium-features{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr;padding:40px 20px 24px;gap:32px}
   .fbrand{grid-column:1/-1}
-  .stats{grid-template-columns:repeat(3,1fr)}
-  .fbot{flex-direction:column;gap:6px;text-align:center;padding:20px}
+  .fbot{flex-direction:column;gap:8px;text-align:center}
+  .vdiv,.vdiv-line{padding:0 20px;margin:0}
+  .phones-wrap{padding:0 20px}
+  .music-tracks{grid-template-columns:repeat(2,1fr)}
+  #gizlilik{margin:20px}
 }
-@media(max-width:600px){.phones-section{gap:10px}}
 </style>
 </head>
 <body>
 
 <nav>
   <a href="#" class="nav-logo">
-    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M27 11 C27 11 13 11 13 20 C13 29 27 29 27 29" stroke="#C4956A" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-      <line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="1.8" stroke-linecap="round"/>
-      <circle cx="20" cy="20" r="2" fill="#C4956A"/>
-    </svg>
+    <svg width="24" height="24" viewBox="0 0 40 40" fill="none"><line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="2" stroke-linecap="round"/><path d="M27 11C27 11 13 11 13 20C13 29 27 29 27 29" stroke="#C4956A" stroke-width="2" stroke-linecap="round" fill="none"/><line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="20" r="2" fill="#C4956A"/></svg>
     <span class="nav-logo-text">Söz</span>
   </a>
   <ul class="nav-links">
     <li><a href="#ozellikler">Özellikler</a></li>
+    <li><a href="#oyunlar">Oyunlar</a></li>
     <li><a href="#harita">Harita</a></li>
-    <li><a href="#hakkinda">Hakkında</a></li>
-    <li><a href="#" id="priv-link">Gizlilik</a></li>
-    <li><a href="#indir" class="nav-cta">İNDİR</a></li>
+    <li><a href="#premium">Premium</a></li>
+    <li><a href="https://sozapp.com/bagis" class="nav-cta">Bağış Yap</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
+<section class="hero">
   <div class="hero-glow"></div>
-  <div class="hero-badge"><span class="pulse"></span>YENİ · TÜRKÇE İNCİL UYGULAMASI</div>
-  <div class="hero-icon">
-    <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="1.6" stroke-linecap="round"/>
-      <path d="M27 11 C27 11 13 11 13 20 C13 29 27 29 27 29" stroke="#C4956A" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-      <line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="1.6" stroke-linecap="round"/>
-      <circle cx="20" cy="20" r="2" fill="#C4956A"/>
-    </svg>
+  <div class="hero-badge"><span class="pulse"></span>Türkiye'nin İncil Uygulaması</div>
+  <div class="hero-logo">
+    <svg width="44" height="44" viewBox="0 0 40 40" fill="none"><line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="2.2" stroke-linecap="round"/><path d="M27 11C27 11 13 11 13 20C13 29 27 29 27 29" stroke="#C4956A" stroke-width="2.2" stroke-linecap="round" fill="none"/><line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="2.2" stroke-linecap="round"/><circle cx="20" cy="20" r="2.2" fill="#C4956A"/></svg>
   </div>
   <h1 class="hero-title">Söz</h1>
   <p class="hero-sub">Türkçe İncil</p>
-  <p class="hero-desc">Türkçe konuşanlar için tasarlanmış en kapsamlı İncil deneyimi. Tüm Yeni Ahit, AI sohbet, Anadolu haritası, 7 dil desteği ve daha fazlası.</p>
+  <p class="hero-desc">Tüm Yeni Ahit, AI destekli rehber, ruh haline göre ayet önerisi, günlük oyunlar ve 7 dil desteği — tek uygulamada.</p>
   <div class="hero-btns">
-    <a href="#indir" class="btn-p">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      App Store
+    <a href="#bekleme-listesi" class="btn-p">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+      Bekleme Listesine Katıl
     </a>
-    <a href="#indir" class="btn-s">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.31.17.67.19 1.01.07l12.23-7.06-2.79-2.79-10.45 9.78zM.54 1.72C.2 2.07 0 2.6 0 3.28v17.44c0 .68.2 1.21.55 1.56l.08.08 9.77-9.77v-.23L.62 1.64l-.08.08zM20.54 10.27l-2.89-1.67-3.03 3.03 3.03 3.03 2.9-1.68c.83-.48.83-1.26-.01-1.71zM4.19.17L16.42 7.23l-2.79 2.79L3.18.24C3.53.12 3.89.14 4.19.17z"/></svg>
-      Google Play
-    </a>
+    <a href="#ozellikler" class="btn-s">Özellikleri Keşfet</a>
   </div>
   <p class="hero-quote">"Başlangıçta Söz vardı." — Yuhanna 1:1</p>
+</section>
+
+<div class="stats-row reveal">
+  <div class="stat"><span class="stat-num">27</span><span class="stat-label">NT Kitabı</span></div>
+  <div class="stat"><span class="stat-num">7</span><span class="stat-label">Dil</span></div>
+  <div class="stat"><span class="stat-num">12</span><span class="stat-label">Kutsal Yer</span></div>
+  <div class="stat"><span class="stat-num">8</span><span class="stat-label">Müzik Ortamı</span></div>
+  <div class="stat"><span class="stat-num">5</span><span class="stat-label">Ezber Egzersizi</span></div>
+  <div class="stat"><span class="stat-num">4</span><span class="stat-label">Günlük Oyun</span></div>
 </div>
 
-<!-- PHONE SHOWCASE -->
-<div class="phones-section reveal">
-  <!-- Phone 1: Ana Sayfa -->
-  <div class="phone-mock pm-sm">
-    <div class="screen-home">
-      <div class="sh-status"><span>09:41</span><span>▌▌▌ ◉</span></div>
-      <div class="sh-header">
-        <div class="sh-logo">
-          <svg width="14" height="14" viewBox="0 0 40 40" fill="none">
-            <line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M27 11 C27 11 13 11 13 20 C13 29 27 29 27 29" stroke="#C4956A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-            <line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-          <span class="sh-logo-text">Söz</span>
-        </div>
-        <span class="sh-pro">PRO</span>
-      </div>
-      <div class="sh-verse-card">
-        <div class="sh-verse-label">GÜNÜN AYETİ · 18 MART</div>
-        <div class="sh-verse-text">«Barışı sağlayanlar ne mutlu! Onlar Tanrı'nın oğulları olarak anılacak.»</div>
-        <div class="sh-verse-ref">Matta 5:9</div>
-        <div class="sh-verse-actions">
-          <span class="sh-va">Favori</span>
-          <span class="sh-va">Paylaş</span>
-          <span class="sh-va">Oku</span>
-        </div>
-      </div>
-      <div class="sh-plan-card">
-        <div class="sh-plan-title">Yeni Ahit 30 Günde</div>
-        <div class="sh-plan-sub">Bugün: Matta 1–2</div>
-        <div class="sh-progress"><div class="sh-progress-fill"></div></div>
-        <div class="sh-plan-bottom">
-          <span class="sh-plan-day">1 / 30 gün</span>
-          <span class="sh-streak">12 gün seri</span>
-        </div>
-      </div>
-      <div class="sh-tabs">
-        <div class="sh-tab on"><div class="sh-tab-dot"></div>Ana</div>
-        <div class="sh-tab"><div class="sh-tab-dot"></div>Oku</div>
-        <div class="sh-tab"><div class="sh-tab-dot"></div>Keşfet</div>
-        <div class="sh-tab"><div class="sh-tab-dot"></div>Profil</div>
-      </div>
-    </div>
-    <div class="phone-badge">ANA SAYFA</div>
-  </div>
+<!-- PHONES -->
+<div class="phones-section">
+  <div class="phones-wrap">
 
-  <!-- Phone 2: Okuma Sepia -->
-  <div class="phone-mock pm-md">
-    <div class="screen-read">
-      <div class="sr-status"><span>09:41</span><span>▌▌▌ ◉</span></div>
-      <div class="sr-header">
-        <div class="sr-title">Yuhanna</div>
-        <div class="sr-bolumsub"><span>‹</span><span style="color:#C4956A">3. Bölüm ▾</span><span>›</span></div>
+    <div class="phone-mock pm-md">
+      <div class="screen screen-photo">
+        <img src="/assets/screenshots/home.png" alt="Söz ana sayfa ekranı" loading="lazy">
       </div>
-      <div class="sr-toolbar">
-        <div class="sr-tool">Ara</div>
-        <div class="sr-tool">Çeviri</div>
-        <div class="sr-tool on">Dinle</div>
-        <div class="sr-tool">Tema</div>
-        <div class="sr-tool">Bağlam</div>
-      </div>
-      <div class="sr-progress"><div class="sr-progress-fill"></div></div>
-      <div class="sr-verse"><div class="sr-vnum">14</div><div class="sr-vtext dim">Musa çölde yılanı nasıl yükselttiyse, İnsanoğlu da öyle yüceltilmelidir.</div></div>
-      <div class="sr-verse"><div class="sr-vnum">15</div><div class="sr-vtext dim">ta ki O'na iman edenlerin hepsi sonsuz yaşama kavuşsun.</div></div>
-      <div class="sr-verse sr-highlight"><div class="sr-vnum">16</div><div class="sr-vtext">Çünkü Tanrı dünyayı o kadar çok sevdi ki, biricik Oğlu'nu verdi.</div></div>
-      <div class="sr-verse"><div class="sr-vnum">17</div><div class="sr-vtext dim">Tanrı Oğlu'nu dünyayı yargılamak için değil, kurtarmak için gönderdi.</div></div>
-      <div class="sr-tabs">
-        <div class="sr-tab">Ana</div>
-        <div class="sr-tab on">Oku</div>
-        <div class="sr-tab">Keşfet</div>
-        <div class="sr-tab">Notlar</div>
-        <div class="sr-tab">Profil</div>
-      </div>
+      <div class="phone-badge">ANA SAYFA</div>
     </div>
-    <div class="phone-badge">OKUMA</div>
-  </div>
 
-  <!-- Phone 3: Ayet Kartı (CENTER) -->
-  <div class="phone-mock pm-lg">
-    <div class="screen-card">
-      <div class="sc-status"><span>09:41</span><span>▌▌▌ ◉</span></div>
-      <div class="sc-header">KART OLUŞTUR</div>
-      <div class="sc-card-preview">
-        <svg style="position:absolute;top:10px;left:10px;opacity:.3" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M1 10V1H10" stroke="#C4956A" stroke-width="1.2" stroke-linecap="round"/></svg>
-        <svg style="position:absolute;top:10px;right:10px;opacity:.3" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M19 10V1H10" stroke="#C4956A" stroke-width="1.2" stroke-linecap="round"/></svg>
-        <svg style="position:absolute;bottom:10px;left:10px;opacity:.3" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M1 10V19H10" stroke="#C4956A" stroke-width="1.2" stroke-linecap="round"/></svg>
-        <svg style="position:absolute;bottom:10px;right:10px;opacity:.3" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M19 10V19H10" stroke="#C4956A" stroke-width="1.2" stroke-linecap="round"/></svg>
-        <div class="sc-logo-row">
-          <svg width="12" height="12" viewBox="0 0 40 40" fill="none">
-            <line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M27 11 C27 11 13 11 13 20 C13 29 27 29 27 29" stroke="#C4956A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-            <line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="2.5" stroke-linecap="round"/>
-          </svg>
-          <span class="sc-logo-text">S Ö Z</span>
-        </div>
-        <div class="sc-verse-text">«Çünkü Tanrı dünyayı o kadar çok sevdi ki, biricik Oğlu'nu verdi. Öyle ki, O'na iman edenlerin hiçbiri mahvolmasın, hepsi sonsuz yaşama kavuşsun.»</div>
-        <div>
-          <div class="sc-verse-ref">— YUHANNA 3:16</div>
-          <div class="sc-watermark">söz uygulamasıyla oluşturuldu</div>
-        </div>
+    <div class="phone-mock pm-lg">
+      <div class="screen screen-photo">
+        <img src="/assets/screenshots/read.png" alt="Söz okuma ekranı" loading="lazy">
       </div>
-      <div class="sc-themes">
-        <span class="sc-theme-label">Tema:</span>
-        <div class="sc-theme on" style="background:linear-gradient(135deg,#1A1208,#2D1F0A)"></div>
-        <div class="sc-theme" style="background:linear-gradient(135deg,#0A1520,#1A3048)"></div>
-        <div class="sc-theme" style="background:linear-gradient(135deg,#0F1A10,#1A3020)"></div>
-        <div class="sc-theme" style="background:linear-gradient(135deg,#F5F0E8,#EDE8DF)"></div>
-      </div>
-      <div class="sc-share-btn">Instagram / WhatsApp'a Paylaş</div>
-      <div class="sc-tabs">
-        <div class="sc-tab">Ana</div>
-        <div class="sc-tab">Oku</div>
-        <div class="sc-tab on">Paylaş</div>
-        <div class="sc-tab">Profil</div>
-      </div>
+      <div class="phone-badge">OKUMA</div>
     </div>
-    <div class="phone-badge">AYET KARTI</div>
-  </div>
 
-  <!-- Phone 4: Arama -->
-  <div class="phone-mock pm-xl">
-    <div class="screen-search">
-      <div class="ss-status"><span>09:41</span><span>▌▌▌ ◉</span></div>
-      <div class="ss-input-wrap">
-        <span style="font-size:11px;color:rgba(196,149,80,.6)">ara</span>
-        <span class="ss-input-text">sevgi</span>
-        <span style="font-size:11px;color:rgba(196,149,80,.4)">✕</span>
+    <div class="phone-mock pm-md">
+      <div class="screen screen-photo">
+        <img src="/assets/screenshots/explore.png" alt="Söz Keşfet ekranı" loading="lazy">
       </div>
-      <div class="ss-count">6 sonuç bulundu · Yuhanna</div>
-      <div class="ss-result">
-        <div class="ss-result-bar"></div>
-        <div>
-          <div class="ss-result-ref">YUHANNA 3:16</div>
-          <div class="ss-result-text">Çünkü Tanrı dünyayı o kadar çok <em>sevdi</em> ki, biricik Oğlu'nu verdi.</div>
-        </div>
-      </div>
-      <div class="ss-result">
-        <div class="ss-result-bar"></div>
-        <div>
-          <div class="ss-result-ref">YUHANNA 13:35</div>
-          <div class="ss-result-text">Birbirinize <em>sevgi</em>niz olursa, herkes bununla benim öğrencilerim olduğunuzu anlayacaktır.</div>
-        </div>
-      </div>
-      <div class="ss-result">
-        <div class="ss-result-bar"></div>
-        <div>
-          <div class="ss-result-ref">1. YUHANNA 4:8</div>
-          <div class="ss-result-text">Tanrı <em>sevgi</em>dir. <em>Sevgi</em>si olmayan kişi Tanrı'yı tanımamıştır.</div>
-        </div>
-      </div>
-      <div class="ss-tabs">
-        <div class="ss-tab">Ana</div>
-        <div class="ss-tab on">Ara</div>
-        <div class="ss-tab">Keşfet</div>
-        <div class="ss-tab">Profil</div>
-      </div>
+      <div class="phone-badge">KEŞFET</div>
     </div>
-    <div class="phone-badge">ARAMA</div>
-  </div>
 
-  <!-- Phone 5: Kilise Modu -->
-  <div class="phone-mock pm-xs">
-    <div class="screen-church">
-      <div class="sch-status"><span>09:41</span><span>▌▌▌ ◉</span></div>
-      <div class="sch-back">‹ Geri</div>
-      <div class="sch-title">Kilise Modu</div>
-      <div class="sch-card">
-        <div class="sch-group-name">Gençlik Grubu</div>
-        <div class="sch-church">İstanbul Merkez Kilisesi</div>
-        <div class="sch-code-row">
-          <span class="sch-code">Kod: Y6B2MG</span>
-          <span class="sch-copy">Kopyala</span>
-        </div>
-        <div class="sch-week">Bu hafta: Matta 5–7</div>
-        <div class="sch-members-title">ÜYE İLERLEMESİ</div>
-        <div class="sch-member"><div class="sch-avatar">AY</div><div class="sch-bar-wrap"><div class="sch-bar-fill" style="width:80%"></div></div><span class="sch-pct">%80</span></div>
-        <div class="sch-member"><div class="sch-avatar">MK</div><div class="sch-bar-wrap"><div class="sch-bar-fill" style="width:45%"></div></div><span class="sch-pct">%45</span></div>
-        <div class="sch-member"><div class="sch-avatar">SB</div><div class="sch-bar-wrap"><div class="sch-bar-fill" style="width:100%"></div></div><span class="sch-pct">%100</span><span class="sch-check">✓</span></div>
-        <div class="sch-member"><div class="sch-avatar">EÖ</div><div class="sch-bar-wrap"><div class="sch-bar-fill" style="width:60%"></div></div><span class="sch-pct">%60</span></div>
+    <div class="phone-mock pm-sm">
+      <div class="screen screen-photo">
+        <img src="/assets/screenshots/game.png" alt="Kim Söyledi günlük oyun ekranı" loading="lazy">
       </div>
-      <div class="sch-tabs">
-        <div class="sch-tab on">Ana</div>
-        <div class="sch-tab">Oku</div>
-        <div class="sch-tab">Kilise</div>
-        <div class="sch-tab">Profil</div>
-      </div>
+      <div class="phone-badge">GÜNLÜK OYUN</div>
     </div>
-    <div class="phone-badge">KİLİSE MODU</div>
+
+    <div class="phone-mock pm-sm">
+      <div class="screen screen-mem">
+        <div class="phone-status"><span>09:41</span><span>▌▌▌ ◉</span></div>
+        <div style="font-size:13px;font-weight:300;color:var(--text)">Ezberleme</div>
+        <div class="smem-levels">
+          <div class="smem-lev"><div class="smem-lev-n">3</div><div class="smem-lev-t">Öğren.</div></div>
+          <div class="smem-lev"><div class="smem-lev-n">2</div><div class="smem-lev-t">Neredeyse</div></div>
+          <div class="smem-lev"><div class="smem-lev-n">5</div><div class="smem-lev-t">Ezberledim</div></div>
+        </div>
+        <div class="smem-due">
+          <div class="smem-due-t">Bugün Tekrar</div>
+          <div class="smem-item">
+            <div class="smem-dots"><div class="smem-dot"></div><div class="smem-dot"></div><div class="smem-dot empty"></div><div class="smem-dot empty"></div><div class="smem-dot empty"></div></div>
+            <div class="smem-ref">Yuh 3:16</div>
+            <div class="smem-btn">Tekrar →</div>
+          </div>
+          <div class="smem-item">
+            <div class="smem-dots"><div class="smem-dot"></div><div class="smem-dot"></div><div class="smem-dot"></div><div class="smem-dot empty"></div><div class="smem-dot empty"></div></div>
+            <div class="smem-ref">Fil 4:13</div>
+            <div class="smem-btn">Tekrar →</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-badge">EZBERLEME</div>
+    </div>
+
   </div>
 </div>
+
+<!-- WAITLIST -->
+<section class="waitlist-section" id="bekleme-listesi">
+  <div class="waitlist-card reveal">
+    <span class="slabel">Yakında</span>
+    <h2 class="stitle" style="font-size:clamp(26px,3.5vw,36px)">Söz henüz mağazalarda değil.</h2>
+    <p class="sdesc" style="margin:0 auto">Yayınlanır yayınlanmaz ilk sen haber al. E-postanı bırak, seni beklemeye almış olalım.</p>
+    <form class="waitlist-form" id="waitlist-form">
+      <div class="waitlist-platforms">
+        <div class="wp-opt active" data-platform="both">Fark etmez</div>
+        <div class="wp-opt" data-platform="ios">iPhone</div>
+        <div class="wp-opt" data-platform="android">Android</div>
+      </div>
+      <input type="email" class="waitlist-input" id="waitlist-email" placeholder="ornek@email.com" required>
+      <button type="submit" class="waitlist-btn" id="waitlist-submit">Bekleme Listesine Katıl</button>
+      <div class="waitlist-msg" id="waitlist-msg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- NASILISIN -->
+<section class="mood-section" id="nasilisin">
+  <div class="mood-inner">
+    <div class="reveal">
+      <span class="slabel">Yeni Özellik</span>
+      <h2 class="stitle">Nasılsın?<br><em style="color:var(--accent);font-style:italic">Ruh haline göre ayet.</em></h2>
+      <p class="sdesc">Nasıl hissettiğini yaz. Yapay zeka ruh halini analiz eder ve sana özel 3 ayet önerir. Yalnızlık, endişe, sevinç, minnettarlık — her duygu için Söz'de bir cevap var.</p>
+      <div class="mood-steps">
+        <div class="mood-step"><div class="mood-step-num">1</div><div><div class="mood-step-t">Hissettiklerini yaz</div><div class="mood-step-d">Hızlı duygu chip'leri ya da kendi kelimelerinle. Hiçbir şey saklanmaz.</div></div></div>
+        <div class="mood-step"><div class="mood-step-num">2</div><div><div class="mood-step-t">AI analiz eder</div><div class="mood-step-d">Groq AI ruh halini ve ihtiyacını tespit eder. Saniyeler içinde.</div></div></div>
+        <div class="mood-step"><div class="mood-step-num">3</div><div><div class="mood-step-t">3 kişisel ayet alırsın</div><div class="mood-step-d">Her ayet için neden uygun olduğu açıklanır. Favorile veya bölümü oku.</div></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div style="background:var(--surface);border-radius:16px;padding:24px;border:0.5px solid var(--border)">
+        <div style="font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:12px">Örnek Analiz</div>
+        <div style="font-size:15px;color:var(--text2);font-style:italic;line-height:1.8;border-left:2px solid var(--border);padding-left:14px;margin-bottom:16px">"Bugün çok yorgunum, her şey ağır geliyor. Umut bulmak istiyorum."</div>
+        <div style="display:flex;gap:8px;margin-bottom:16px">
+          <div style="background:rgba(196,149,80,0.1);border:0.5px solid var(--border);border-radius:7px;padding:4px 12px;font-size:12px;color:var(--accent)">Yorgunluk</div>
+          <div style="background:rgba(107,163,190,0.08);border:0.5px solid rgba(107,163,190,0.2);border-radius:7px;padding:4px 12px;font-size:12px;color:var(--blue)">Umut Arayışı</div>
+        </div>
+        <div style="font-size:13px;color:var(--text2);font-style:italic;margin-bottom:14px">Sana yük taşımaktan yorulanlara söylenen sözler var.</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:var(--bg);border-radius:10px;padding:14px;border:0.5px solid var(--border)">
+            <div style="font-size:11px;color:var(--accent);margin-bottom:5px">Matta 11:28</div>
+            <div style="font-size:13px;font-style:italic;color:var(--text);line-height:1.7">"Yorgun ve yük altında ezilmiş olanlar, hepiniz bana gelin; sizi ben dinlendireceğim."</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;border:0.5px solid var(--border)">
+            <div style="font-size:11px;color:var(--accent);margin-bottom:5px">Filipililere 4:13</div>
+            <div style="font-size:13px;font-style:italic;color:var(--text);line-height:1.7">"Her şeye gücüm yeter, beni güçlendiren Mesih sayesinde."</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;border:0.5px solid var(--border)">
+            <div style="font-size:11px;color:var(--accent);margin-bottom:5px">Yeşaya 40:31</div>
+            <div style="font-size:13px;font-style:italic;color:var(--text);line-height:1.7">"RAB'be umut bağlayanlar yeni güce kavuşur, kartal gibi kanat açıp yükselirler."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FEATURES -->
-<section class="sec" id="ozellikler">
-  <div class="reveal">
+<section class="features-section" id="ozellikler">
+  <div class="features-header reveal">
     <span class="slabel">Özellikler</span>
     <h2 class="stitle">Her şey düşünülmüş.<br>Türkçe için tasarlanmış.</h2>
-    <p class="sdesc">Rakip hiçbir Türkçe İncil uygulamasında olmayan 12 özellik.</p>
+    <p class="sdesc" style="margin:0 auto">Rakip hiçbir Türkçe İncil uygulamasında olmayan özellikler.</p>
   </div>
   <div class="fgrid reveal">
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg></div><h3 class="ftitle">Tüm Yeni Ahit</h3><p class="fdesc">27 kitap, Türkçe Kutsal Kitap 2001 çevirisiyle. Bölüm bölüm okuyun, ayet ayet çalışın.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c-.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg></div><h3 class="ftitle">Anadolu Haritası</h3><p class="fdesc">Efes, Antakya, Tarsus... İncil'in geçtiği 12 kutsal yer bugün Türkiye topraklarında. İnteraktif harita.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg></div><h3 class="ftitle">Söz'e Sor — AI</h3><p class="fdesc">İncil hakkında her şeyi sorun. Yapay zeka destekli Türkçe asistan — hiçbir Türkçe uygulamada yok.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg></div><h3 class="ftitle">7 Dil Desteği</h3><p class="fdesc">Türkçe, İngilizce, Almanca, Kürtçe, Ermenice, Rumca, Arapça. Türkiye'nin tüm toplulukları için.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg></div><h3 class="ftitle">Bağlam Notları</h3><p class="fdesc">Her bölüm için tarihsel bağlam, özet ve anahtar ayet. İncil'i daha derin anlayın.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div><h3 class="ftitle">Çeviri Karşılaştırma</h3><p class="fdesc">Kutsal Kitap 2001 ve 1878 eski çevirisini yan yana okuyun. Türkiye'de başka hiçbir uygulamada yok.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg></div><h3 class="ftitle">Kilise Grubu</h3><p class="fdesc">Kilisenizle birlikte okuyun. Grup kodu ile katılın, ilerlemeyi takip edin, dua isteği paylaşın.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg></div><h3 class="ftitle">Kilise Takvimi</h3><p class="fdesc">Ortodoks, Katolik, Protestan, Ermeni — mezhebinize özel bayramlar, oruç ve azizler takvimi.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg></div><h3 class="ftitle">Odak Modu</h3><p class="fdesc">Telefonunu bir kenara bırak. Sadece Söz. Zamanlayıcı ile derin okuma deneyimi yaşa.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"/></svg></div><h3 class="ftitle">Sesli Okuma</h3><p class="fdesc">Türkçe ses ile ayetleri dinleyin. Tek ayet veya tüm bölümü sesli okuyun.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/></svg></div><h3 class="ftitle">Ayet Kartları</h3><p class="fdesc">Ayetleri güzel kartlara dönüştürün, Instagram ve WhatsApp'ta paylaşın. 8 zarif tema.</p></div>
-    <div class="fcard"><div class="ficon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg></div><h3 class="ftitle">Ayet Ezberleme</h3><p class="fdesc">3 aşamalı öğrenme sistemi ile ayetleri ezberleyin. Boşluk doldur, serbest yaz.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg></div><h3 class="ftitle">Tüm Yeni Ahit</h3><p class="fdesc">27 kitap, iki Türkçe çeviri. Bölüm bölüm okuyun, ayet ayet çalışın. Çeviri karşılaştırması dahil.</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg></div><h3 class="ftitle">Nasılsın? — AI</h3><p class="fdesc">Ruh halini yaz, AI analiz eder, 3 kişisel ayet önerir. Her duygu için Söz'de bir cevap var.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg></div><h3 class="ftitle">Söz'e Sor — AI</h3><p class="fdesc">İncil hakkında her şeyi sorun. Groq AI destekli Türkçe asistan. Günde 10 soru ücretsiz.</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z"/></svg></div><h3 class="ftitle">Günlük Oyunlar</h3><p class="fdesc">Kim Söyledi?, Doğru mu Yanlış mı?, Eksik Kelime. Her gün yeni sorular, streak sistemi.</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg></div><h3 class="ftitle">Ayet Ezberleme</h3><p class="fdesc">5 egzersiz tipi, spaced repetition sistemi. Gör & Öğren, Boş Doldur, Serbest Yaz, Kalbinden Yaz, Dinle & Yaz.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c-.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg></div><h3 class="ftitle">Anadolu Haritası</h3><p class="fdesc">İncil'in geçtiği 12 kutsal yer bugün Türkiye topraklarında. İnteraktif harita, her yerin hikayesi.</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"/></svg></div><h3 class="ftitle">Ortam Müziği</h3><p class="fdesc">8 ses ortamı: Yağmur, Ateş, Dere, Kuşlar, Piyano, Yaylılar. Okurken arka planda çalar.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802"/></svg></div><h3 class="ftitle">7 Dil Desteği</h3><p class="fdesc">Türkçe, İngilizce, Almanca, Kürtçe, Ermenice, Rumca, Arapça. Tüm arayüz seçilen dilde.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div><h3 class="ftitle">Çeviri Karşılaştırma</h3><p class="fdesc">Kutsal Kitap 2001 ve 1878 eski çevirisini yan yana okuyun. Türkiye'de başka hiçbir uygulamada yok.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg></div><h3 class="ftitle">Odak Modu</h3><p class="fdesc">Zamanlayıcı ile derin okuma. Ekranı açık tut, bildirimler susturulsun. Ortam müziği otomatik başlar.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/></svg></div><h3 class="ftitle">Ayet Kartları</h3><p class="fdesc">8 zarif temada ayet kartı oluştur. Instagram ve WhatsApp'ta paylaş.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg></div><h3 class="ftitle">Kilise Grubu</h3><p class="fdesc">Kilisenizle birlikte okuyun. Grup kodu ile katılın, ilerlemeyi takip edin, dua isteği paylaşın.</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M8.25 8.25v-1.5a2.25 2.25 0 012.25-2.25h7.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-1.5m-9-6h9m-9 3h9m-9 3h6m-9.75-9.75h9.75a2.25 2.25 0 012.25 2.25v9.75a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75a2.25 2.25 0 012.25-2.25z"/></svg></div><h3 class="ftitle">Arkadaşlık & Mesajlaşma</h3><p class="fdesc">Arkadaşlarını ekle, birlikte okuduğunuz ayetleri gör, anlık mesajlaş, okuma planında birbirinizi takip edin.</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H11.25m0 0V15a2.25 2.25 0 00-2.25-2.25h-3A2.25 2.25 0 003.75 15v3.375"/></svg></div><h3 class="ftitle">Liderlik Tablosu</h3><p class="fdesc">Günlük oyunlarda arkadaşlarınla veya tüm dünyayla yarış. Kim daha çok ayet biliyor?</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg></div><h3 class="ftitle">Dua Duvarı</h3><p class="fdesc">Dua isteğini paylaş, başkalarının isteklerine "Dua ediyorum" de. İsimsiz paylaşım seçeneği var.</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"/></svg></div><h3 class="ftitle">Konuya Göre Ayetler</h3><p class="fdesc">Kaygı, umut, bağışlama, sabır... İhtiyacına göre gruplanmış ayet koleksiyonları.</p></div>
+    <div class="fcard"><span class="fnew">Yeni</span><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg></div><h3 class="ftitle">Çocuklar İçin</h3><p class="fdesc">Basit dille anlatılmış İncil hikayeleri. Nuh'un gemisinden İsa'nın doğuşuna, çocuklar için hazırlandı.</p></div>
+    <div class="fcard"><div class="ficon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg></div><h3 class="ftitle">Okuma Planları</h3><p class="fdesc">Yuhanna İncili'nden Pavlus'un mektuplarına, farklı sürelerde birden fazla okuma planı. Arkadaşınla birlikte takip et.</p></div>
   </div>
 </section>
 
-<div class="vdiv reveal">
-  <blockquote>"Sözün ayağıma kandil, yoluma ışıktır."<cite>Mezmur 119:105</cite></blockquote>
-</div>
-
-<!-- MAP -->
-<div class="map-section" id="harita">
-  <div class="map-inner">
-    <div class="map-header reveal">
-      <span class="slabel" style="display:inline-block">Anadolu Haritası</span>
-      <h2 class="stitle">İncil Türkiye'de yaşandı.</h2>
-      <p class="sdesc" style="max-width:580px;margin:0 auto">Yeni Ahit'in neredeyse tamamı bugün Türkiye topraklarında geçti. Her noktanın bir hikayesi var.</p>
+<!-- GAMES -->
+<section class="games-section" id="oyunlar">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="reveal" style="text-align:center">
+      <span class="slabel">Günlük Oyunlar</span>
+      <h2 class="stitle">Hem öğren, hem eğlen.</h2>
+      <p class="sdesc" style="margin:0 auto">Her gün yeni sorular. Streak sistemi. İncil bilgin farkında olmadan derinleşir.</p>
     </div>
-    <div class="map-container reveal">
-      <div>
-        <div class="map-svg-box">
-          <svg viewBox="0 0 800 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="games-grid reveal">
+      <div class="game-card">
+        <div class="game-badge" style="background:rgba(196,149,80,0.1);color:var(--accent)">GÜNLÜK</div>
+        <div class="game-icon" style="background:rgba(196,149,80,0.1)"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg></div>
+        <div class="game-title">Kim Söyledi?</div>
+        <div class="game-desc">Bir ayet gösterilir. 4 seçenekten hangisinin söylediğini bul. Pavlus, Petrus, Yuhanna, İsa mı?</div>
+        <div class="game-note">🔥 Günlük streak sistemi</div>
+      </div>
+      <div class="game-card">
+        <div class="game-badge" style="background:rgba(124,184,124,0.1);color:var(--green)">SWIPE</div>
+        <div class="game-icon" style="background:rgba(124,184,124,0.1)"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#7CB87C" stroke-width="1.5"><path stroke-linecap="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg></div>
+        <div class="game-title">Doğru mu Yanlış mı?</div>
+        <div class="game-desc">İncil ifadelerini okuyun, sağa (doğru) veya sola (yanlış) kaydırın. 10 soruluk tur, kaç doğru yaparsın?</div>
+        <div class="game-note" style="color:var(--green)">→ Sağa kaydır: Doğru</div>
+      </div>
+      <div class="game-card">
+        <div class="game-badge" style="background:rgba(107,163,190,0.1);color:var(--blue)">WORDLE</div>
+        <div class="game-icon" style="background:rgba(107,163,190,0.1)"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#6BA3BE" stroke-width="1.5"><path stroke-linecap="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125"/></svg></div>
+        <div class="game-title">Eksik Kelime</div>
+        <div class="game-desc">Günlük bir ayet, bazı kelimeler gizli. Seçeneklerden tıklayarak boşlukları doldur. Wordle'ın İncil versiyonu.</div>
+        <div class="game-note" style="color:var(--blue)">✏️ Günlük yeni ayet</div>
+      </div>
+      <div class="game-card">
+        <div class="game-badge" style="background:rgba(196,149,80,0.1);color:var(--accent)">YENİ</div>
+        <div class="game-icon" style="background:rgba(196,149,80,0.1)"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#C4956A" stroke-width="1.5"><path stroke-linecap="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg></div>
+        <div class="game-title">Ayet Sıralama</div>
+        <div class="game-desc">Karışık kelimeleri doğru sıraya diz. Kısa bir ayet, dağıtılmış kelime kutucukları — dokunarak yeniden sırala.</div>
+        <div class="game-note">🔤 Kelime kelime sırala</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <!-- Türkiye ana kara parçası (Anadolu) - gerçek coğrafi koordinatlardan -->
-            <path d="M 138.8,50.8 L 110.4,42.9 L 78.4,50.8 L 67.8,74.4 L 71.3,98.0 L 74.9,109.8 L 92.6,121.7 L 89.1,145.3 L 71.3,161.1 L 78.4,168.9 L 78.4,184.7 L 85.5,192.6 L 103.3,216.2 L 114.0,232.0 L 121.1,243.8 L 135.3,243.8 L 145.9,243.8 L 167.3,239.8 L 174.4,235.9 L 199.2,255.6 L 227.7,271.4 L 263.2,251.7 L 298.7,263.5 L 334.3,275.3 L 369.8,263.5 L 405.3,283.2 L 416.0,259.5 L 426.6,271.4 L 440.9,259.5 L 448.0,259.5 L 476.4,255.6 L 511.9,251.7 L 547.5,255.6 L 575.9,243.8 L 607.9,239.8 L 650.5,239.8 L 671.8,232.0 L 707.4,243.8 L 725.1,188.6 L 735.8,137.4 L 693.1,98.0 L 636.3,82.3 L 618.5,66.5 L 583.0,105.9 L 529.7,82.3 L 494.2,86.2 L 458.6,54.7 L 423.1,42.9 L 387.6,46.8 L 334.3,42.9 L 281.0,46.8 L 227.7,70.5 L 174.4,78.3 L 138.8,50.8 Z"
-              fill="rgba(196,149,80,0.1)" stroke="rgba(196,149,80,0.5)" stroke-width="1.5" stroke-linejoin="round"/>
-
-            <!-- Trakya (Avrupa yakası) -->
-            <path d="M 78.4,50.8 L 110.4,42.9 L 138.8,50.8 L 145.9,66.5 L 138.8,82.3 L 121.1,90.2 L 103.3,86.2 L 89.1,78.3 L 78.4,50.8 Z"
-              fill="rgba(196,149,80,0.1)" stroke="rgba(196,149,80,0.4)" stroke-width="1.5" stroke-linejoin="round"/>
-
-            <!-- Patmos Adası (Ege) -->
-            <ellipse cx="87" cy="250" rx="10" ry="7"
-              fill="rgba(196,149,80,0.08)" stroke="rgba(196,149,80,0.35)" stroke-width="1.2"/>
-
-            <!-- Kıbrıs -->
-            <path d="M 390,318 Q 406,312 422,314 Q 432,318 428,326 Q 414,332 398,326 Z"
-              fill="rgba(196,149,80,0.07)" stroke="rgba(196,149,80,0.25)" stroke-width="1"/>
-
-            <!-- Rodos -->
-            <ellipse cx="155" cy="278" rx="8" ry="5"
-              fill="rgba(196,149,80,0.06)" stroke="rgba(196,149,80,0.2)" stroke-width="1"/>
-
-            <!-- Deniz etiketleri -->
-            <text x="55" y="255" font-size="9" fill="rgba(196,149,80,0.25)"
-              text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic">Ege</text>
-            <text x="55" y="267" font-size="9" fill="rgba(196,149,80,0.25)"
-              text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic">Denizi</text>
-            <text x="300" y="320" font-size="9" fill="rgba(196,149,80,0.22)"
-              text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic">Akdeniz</text>
-            <text x="420" y="50" font-size="9" fill="rgba(196,149,80,0.18)"
-              text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic">Karadeniz</text>
-
-            <!-- ===== PİNLER - Gerçek coğrafi konumlar ===== -->
-
-            <!-- Patmos -->
-            <g class="map-pin-group" data-id="patmos" onclick="selectLoc('patmos')" style="cursor:pointer">
-              <circle cx="87" cy="250" r="8" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="87" cy="250" r="4" fill="#C4956A" class="map-pin-inner"/>
-              <text x="87" y="235" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Patmos</text>
-            </g>
-
-            <!-- İzmir -->
-            <g class="map-pin-group" data-id="izmir" onclick="selectLoc('izmir')" style="cursor:pointer">
-              <circle cx="108" cy="188" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="108" cy="188" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="85" cy="188" x="85" y="183" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">İzmir</text>
-            </g>
-
-            <!-- Bergama -->
-            <g class="map-pin-group" data-id="bergama" onclick="selectLoc('bergama')" style="cursor:pointer">
-              <circle cx="110" cy="160" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="110" cy="160" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="136" y="155" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Bergama</text>
-            </g>
-
-            <!-- Efes -->
-            <g class="map-pin-group" data-id="efes" onclick="selectLoc('efes')" style="cursor:pointer">
-              <circle cx="115" cy="207" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="115" cy="207" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="115" y="222" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Efes</text>
-            </g>
-
-            <!-- Alaşehir -->
-            <g class="map-pin-group" data-id="alasehir" onclick="selectLoc('alasehir')" style="cursor:pointer">
-              <circle cx="157" cy="191" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="157" cy="191" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="157" y="177" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Alaşehir</text>
-            </g>
-
-            <!-- Laodikya (Denizli) -->
-            <g class="map-pin-group" data-id="denizli" onclick="selectLoc('denizli')" style="cursor:pointer">
-              <circle cx="178" cy="214" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="178" cy="214" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="178" y="230" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Laodikya</text>
-            </g>
-
-            <!-- Ankara -->
-            <g class="map-pin-group" data-id="ankara" onclick="selectLoc('ankara')" style="cursor:pointer">
-              <circle cx="311" cy="128" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="311" cy="128" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="311" y="113" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Ankara</text>
-            </g>
-
-            <!-- Konya -->
-            <g class="map-pin-group" data-id="konya" onclick="selectLoc('konya')" style="cursor:pointer">
-              <circle cx="298" cy="210" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="298" cy="210" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="298" y="226" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Konya</text>
-            </g>
-
-            <!-- Tarsus -->
-            <g class="map-pin-group" data-id="tarsus" onclick="selectLoc('tarsus')" style="cursor:pointer">
-              <circle cx="384" cy="247" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="384" cy="247" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="384" y="263" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Tarsus</text>
-            </g>
-
-            <!-- Antakya -->
-            <g class="map-pin-group" data-id="antakya" onclick="selectLoc('antakya')" style="cursor:pointer">
-              <circle cx="429" cy="275" r="9" fill="rgba(196,149,80,0.15)" class="map-pin-outer"/>
-              <circle cx="429" cy="275" r="4.5" fill="#C4956A" class="map-pin-inner"/>
-              <text x="429" y="291" font-size="9.5" fill="#C4956A" text-anchor="middle"
-                font-family="Cormorant Garamond,serif">Antakya</text>
-            </g>
-
-          </svg>
-          <div class="map-legend"><div class="map-legend-dot"></div><span class="map-legend-text">Bir noktaya tıklayarak detayları görün</span></div>
+<!-- MEMORIZE -->
+<section class="mem-section" id="ezberleme">
+  <div class="mem-inner">
+    <div class="reveal">
+      <span class="slabel">Ezberleme Sistemi</span>
+      <h2 class="stitle">Ayetler kalbine işlensin.</h2>
+      <p class="sdesc">Bilimsel spaced repetition yöntemiyle. 5 farklı egzersiz tipi. Otomatik tekrar planlaması.</p>
+      <div class="mem-exercises">
+        <div class="mem-ex"><div class="mem-ex-num">1</div><div><div class="mem-ex-t">Gör & Öğren</div><div class="mem-ex-d">Geri sayım dairesiyle ayeti tanı</div></div></div>
+        <div class="mem-ex"><div class="mem-ex-num">2</div><div><div class="mem-ex-t">Boş Doldur</div><div class="mem-ex-d">Gizli kelimeleri seçeneklerden tamamla</div></div></div>
+        <div class="mem-ex"><div class="mem-ex-num">3</div><div><div class="mem-ex-t">Serbest Yaz</div><div class="mem-ex-d">Ayeti başvuru olmadan yaz</div></div></div>
+        <div class="mem-ex"><div class="mem-ex-num">4</div><div><div class="mem-ex-t">Kalbinden Yaz</div><div class="mem-ex-d">Sadece referansla — tam ezberleme</div></div></div>
+        <div class="mem-ex"><div class="mem-ex-num">5</div><div><div class="mem-ex-t">Dinle & Yaz</div><div class="mem-ex-d">Sesli okumayı duyup yaz</div></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div style="background:var(--surface);border-radius:16px;padding:28px;border:0.5px solid var(--border)">
+        <div style="font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:20px">Tekrar Aralıkları — Spaced Repetition</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg);border-radius:8px;border:0.5px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:rgba(196,149,80,0.3)"></div><div style="flex:1;font-size:14px;color:var(--text2)">Seviye 1</div><div style="font-size:12px;color:var(--text3)">1 gün</div></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg);border-radius:8px;border:0.5px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:rgba(196,149,80,0.5)"></div><div style="flex:1;font-size:14px;color:var(--text2)">Seviye 2</div><div style="font-size:12px;color:var(--text3)">3 gün</div></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg);border-radius:8px;border:0.5px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:rgba(196,149,80,0.7)"></div><div style="flex:1;font-size:14px;color:var(--text2)">Seviye 3</div><div style="font-size:12px;color:var(--text3)">7 gün</div></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg);border-radius:8px;border:0.5px solid var(--border)"><div style="width:8px;height:8px;border-radius:50%;background:rgba(196,149,80,0.85)"></div><div style="flex:1;font-size:14px;color:var(--text2)">Seviye 4</div><div style="font-size:12px;color:var(--text3)">14 gün</div></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(196,149,80,0.06);border-radius:8px;border:0.5px solid rgba(196,149,80,0.3)"><div style="width:8px;height:8px;border-radius:50%;background:var(--accent)"></div><div style="flex:1;font-size:14px;color:var(--accent)">Seviye 5 — Ezberledim ✓</div><div style="font-size:12px;color:var(--accent)">30 gün</div></div>
         </div>
       </div>
-      <div class="loc-cards" id="loc-cards">
-        <div class="loc-card active" data-id="efes"><div class="loc-card-top"><span class="loc-name">Efes</span><span class="loc-modern">Selçuk, İzmir</span></div><div class="loc-ref">Vahiy 2:1 · Efesliler 1:1</div><div class="loc-desc">Pavlus'un 3 yıl kaldığı ve kilise kurduğu şehir. Yedi kiliseden ilki. Bugün Selçuk'ta görülebilen muhteşem harabeleri ile dünyanın en önemli arkeolojik alanlarından biri.</div></div>
-        <div class="loc-card" data-id="izmir"><div class="loc-card-top"><span class="loc-name">İzmir (Smyrna)</span><span class="loc-modern">İzmir</span></div><div class="loc-ref">Vahiy 2:8–11</div><div class="loc-desc">Yedi kiliseden biri. "Ölüme dek sadık kal" mesajıyla tanınan kilise. Türkiye'nin üçüncü büyük şehri.</div></div>
-        <div class="loc-card" data-id="bergama"><div class="loc-card-top"><span class="loc-name">Bergama</span><span class="loc-modern">Bergama, İzmir</span></div><div class="loc-ref">Vahiy 2:12–17</div><div class="loc-desc">"Şeytan'ın tahtının bulunduğu yer." Büyük Zeus sunağı buradaydı. Antik dünyanın en büyük kütüphanelerinden birine ev sahipliği yaptı.</div></div>
-        <div class="loc-card" data-id="alasehir"><div class="loc-card-top"><span class="loc-name">Alaşehir (Philadelphia)</span><span class="loc-modern">Manisa</span></div><div class="loc-ref">Vahiy 3:7–13</div><div class="loc-desc">Yedi kiliseden en çok övülen. "Açık kapı" vaat edilen sadık kilise.</div></div>
-        <div class="loc-card" data-id="denizli"><div class="loc-card-top"><span class="loc-name">Laodikya</span><span class="loc-modern">Denizli yakınları</span></div><div class="loc-ref">Vahiy 3:14–22</div><div class="loc-desc">"Ilık" imanıyla uyarılan kilise. Zengin ticaret şehri olan Laodikya'nın kalıntıları bugün ziyaret edilebilir.</div></div>
-        <div class="loc-card" data-id="antakya"><div class="loc-card-top"><span class="loc-name">Antakya</span><span class="loc-modern">Hatay</span></div><div class="loc-ref">Elç. İşl. 11:26</div><div class="loc-desc">"Hristiyan" adının ilk kullanıldığı şehir. Pavlus'un misyoner yolculuklarının üssü.</div></div>
-        <div class="loc-card" data-id="tarsus"><div class="loc-card-top"><span class="loc-name">Tarsus</span><span class="loc-modern">Mersin</span></div><div class="loc-ref">Elç. İşl. 9:11</div><div class="loc-desc">Pavlus'un doğduğu şehir. Roma vatandaşı olarak burada hem Yahudi geleneğini hem Yunan felsefesini öğrendi.</div></div>
-        <div class="loc-card" data-id="konya"><div class="loc-card-top"><span class="loc-name">Konya (İkonium)</span><span class="loc-modern">Konya</span></div><div class="loc-ref">Elç. İşl. 13:51</div><div class="loc-desc">Pavlus ve Barnaba'nın ilk yolculuklarında ziyaret ettiği şehir. Büyük etki bıraktılar.</div></div>
-        <div class="loc-card" data-id="ankara"><div class="loc-card-top"><span class="loc-name">Ankara (Ankyra)</span><span class="loc-modern">Ankara</span></div><div class="loc-ref">Galatyalılar 1:2</div><div class="loc-desc">Pavlus'un "ey akılsız Galatlar!" diye hitap ettiği bölgenin merkezi. Türkiye'nin başkenti.</div></div>
-        <div class="loc-card" data-id="patmos"><div class="loc-card-top"><span class="loc-name">Patmos Adası</span><span class="loc-modern">Ege (Yunanistan)</span></div><div class="loc-ref">Vahiy 1:9</div><div class="loc-desc">Yuhanna'nın sürgün edildiği ve Vahiy kitabını yazdığı ada. Bugün hâlâ Hristiyan hac noktası.</div></div>
+      <div class="mem-levels">
+        <div class="mem-lev-card"><span class="mem-lev-num">12</span><span class="mem-lev-label">Önerilen Ayet</span></div>
+        <div class="mem-lev-card"><span class="mem-lev-num">5</span><span class="mem-lev-label">Egzersiz Tipi</span></div>
+        <div class="mem-lev-card"><span class="mem-lev-num">∞</span><span class="mem-lev-label">Kendi Ayetin</span></div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- STATS -->
-<section class="sec" id="hakkinda">
-  <div class="reveal" style="text-align:center"><span class="slabel">Rakamlarla</span><h2 class="stitle">Söz'ü rakamlar anlatır.</h2></div>
-  <div class="stats reveal">
-    <div class="stat"><div class="stat-n">27</div><div class="stat-l">Yeni Ahit kitabı</div></div>
-    <div class="stat"><div class="stat-n">12</div><div class="stat-l">Kutsal yer haritada</div></div>
-    <div class="stat"><div class="stat-n">7</div><div class="stat-l">Dil desteği</div></div>
-    <div class="stat"><div class="stat-n">8</div><div class="stat-l">Ayet kartı teması</div></div>
-    <div class="stat"><div class="stat-n">2</div><div class="stat-l">Türkçe çeviri</div></div>
-    <div class="stat"><div class="stat-n">5</div><div class="stat-l">Mezhep desteği</div></div>
+<div class="vdiv-line reveal"></div>
+<div class="vdiv reveal">
+  <blockquote>"Söz'ün ayağıma kandil, yoluma ışıktır."<cite>Mezmur 119:105</cite></blockquote>
+</div>
+<div class="vdiv-line reveal"></div>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<style>
+#soz-map{height:460px;border-radius:16px;border:0.5px solid var(--border);overflow:hidden;position:relative;z-index:1}
+/* Leaflet dark tile filtresi */
+#soz-map .leaflet-tile{filter:brightness(0.18) saturate(0.4) sepia(0.5) hue-rotate(10deg);}
+#soz-map .leaflet-tile-container{opacity:1}
+/* Özel pin stili */
+.soz-pin{
+  width:36px;height:36px;
+  background:rgba(196,149,80,0.15);
+  border:1.5px solid rgba(196,149,80,0.5);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  transition:all .2s;
+  backdrop-filter:blur(4px);
+}
+.soz-pin::after{
+  content:'';width:8px;height:8px;
+  background:#C4956A;border-radius:50%;
+  box-shadow:0 0 8px rgba(196,149,80,0.6);
+}
+.soz-pin:hover{
+  background:rgba(196,149,80,0.25);
+  border-color:#C4956A;
+  transform:scale(1.15);
+}
+.soz-pin.active-pin{
+  background:rgba(196,149,80,0.3);
+  border-color:#C4956A;
+  box-shadow:0 0 20px rgba(196,149,80,0.25);
+}
+.soz-pin.active-pin::after{
+  background:#E8E0D0;
+  box-shadow:0 0 12px rgba(196,149,80,0.8);
+}
+/* Leaflet popup */
+.leaflet-popup-content-wrapper{
+  background:var(--surface)!important;
+  border:0.5px solid rgba(196,149,80,0.35)!important;
+  border-radius:12px!important;
+  box-shadow:0 8px 32px rgba(0,0,0,0.5)!important;
+  padding:0!important;
+  color:var(--text)!important;
+  font-family:'Cormorant Garamond',serif!important;
+}
+.leaflet-popup-content{
+  margin:16px 20px!important;
+  font-family:'Cormorant Garamond',serif!important;
+}
+.leaflet-popup-tip{background:var(--surface)!important}
+.leaflet-popup-close-button{color:rgba(196,149,80,0.6)!important;font-size:16px!important;top:8px!important;right:10px!important}
+.leaflet-popup-close-button:hover{color:#C4956A!important}
+.soz-popup-ref{font-size:11px;color:#C4956A;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.soz-popup-title{font-size:17px;color:var(--text);margin-bottom:6px;letter-spacing:-.01em}
+.soz-popup-desc{font-size:13px;color:rgba(232,224,208,0.55);font-style:italic;line-height:1.65}
+/* Attribution küçük ve tema uyumlu */
+.leaflet-control-attribution{
+  background:rgba(10,10,8,0.7)!important;
+  color:rgba(232,224,208,0.3)!important;
+  font-size:9px!important;
+  border-radius:6px 0 0 0!important;
+  padding:2px 6px!important;
+}
+.leaflet-control-attribution a{color:rgba(196,149,80,0.4)!important}
+.leaflet-control-zoom a{
+  background:rgba(26,22,18,0.9)!important;
+  color:#C4956A!important;
+  border-color:rgba(196,149,80,0.2)!important;
+}
+.leaflet-control-zoom a:hover{background:rgba(196,149,80,0.1)!important}
+</style>
+
+<!-- MAP -->
+<section class="map-section" id="harita">
+  <div class="map-inner">
+    <div class="map-header reveal">
+      <span class="slabel">Anadolu Haritası</span>
+      <h2 class="stitle">İncil Türkiye'de yaşandı.</h2>
+      <p class="sdesc" style="margin:0 auto">Yeni Ahit'in neredeyse tamamı bugün Türkiye topraklarında geçti. Her noktanın bir hikayesi var.</p>
+    </div>
+
+    <div id="soz-map" class="reveal"></div>
+
+    <div class="map-locations reveal" id="map-loc-cards">
+      <div class="loc-card active" data-id="efes"><div class="loc-name">Efes</div><div class="loc-ref">Vahiy 2:1 · Efesliler</div><div class="loc-desc">Pavlus'un 3 yıl kaldığı şehir. Yuhanna'nın son yurdu.</div></div>
+      <div class="loc-card" data-id="izmir"><div class="loc-name">İzmir (Smyrna)</div><div class="loc-ref">Vahiy 2:8</div><div class="loc-desc">7 kiliseden biri. Ölüme dek sadık kal mesajıyla tanınır.</div></div>
+      <div class="loc-card" data-id="bergama"><div class="loc-name">Bergama (Pergamon)</div><div class="loc-ref">Vahiy 2:12</div><div class="loc-desc">7 kiliseden biri. Şeytan'ın tahtının bulunduğu yer.</div></div>
+      <div class="loc-card" data-id="tiyatira"><div class="loc-name">Tiyatira</div><div class="loc-ref">Vahiy 2:18</div><div class="loc-desc">7 kiliseden biri. Mor boya tüccarı Lidya'nın memleketi.</div></div>
+      <div class="loc-card" data-id="sart"><div class="loc-name">Sart (Sardis)</div><div class="loc-ref">Vahiy 3:1</div><div class="loc-desc">7 kiliseden biri. Ölü görünen ama iman kıvılcımı taşıyan kilise.</div></div>
+      <div class="loc-card" data-id="alasehir"><div class="loc-name">Alaşehir (Philadelphia)</div><div class="loc-ref">Vahiy 3:7</div><div class="loc-desc">7 kiliseden en çok övülen. Açık kapı vaat edilen sadık kilise.</div></div>
+      <div class="loc-card" data-id="laodikya"><div class="loc-name">Laodikya</div><div class="loc-ref">Vahiy 3:14</div><div class="loc-desc">7 kiliseden biri. Ilık imanıyla uyarılan kilise.</div></div>
+      <div class="loc-card" data-id="antakya"><div class="loc-name">Antakya</div><div class="loc-ref">Elç. İşl. 11:26</div><div class="loc-desc">"Hristiyan" adının ilk kullanıldığı şehir.</div></div>
+      <div class="loc-card" data-id="tarsus"><div class="loc-name">Tarsus</div><div class="loc-ref">Elç. İşl. 22:3</div><div class="loc-desc">Pavlus'un doğduğu şehir.</div></div>
+      <div class="loc-card" data-id="konya"><div class="loc-name">Konya (İkonium)</div><div class="loc-ref">Elç. İşl. 14:1</div><div class="loc-desc">Pavlus ve Barnaba'nın ilk yolculuklarında ziyaret ettiği şehir.</div></div>
+      <div class="loc-card" data-id="ankara"><div class="loc-name">Ankara (Ankyra)</div><div class="loc-ref">Galatyalılar 1:2</div><div class="loc-desc">Galatyalılar Mektubu'nun yazıldığı bölgenin merkezi.</div></div>
+      <div class="loc-card" data-id="patmos"><div class="loc-name">Patmos Adası</div><div class="loc-ref">Vahiy 1:9</div><div class="loc-desc">Yuhanna'nın sürgün edilip Vahiy'i yazdığı ada.</div></div>
+    </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<div class="testi">
-  <div class="testi-inner">
-    <div class="reveal" style="text-align:center"><span class="slabel">Kullanıcılar</span><h2 class="stitle">Söz'ü kullananlar.</h2></div>
-    <div class="tgrid reveal">
-      <div class="tcard"><div class="tstars">★★★★★</div><p class="ttext">"Sonunda gerçekten güzel bir Türkçe İncil uygulaması. Anadolu haritası özelliği inanılmaz — Efes'in nerede olduğunu görmek bambaşka bir his."</p><div class="tauthor">İSTANBUL · Hristiyan kullanıcı</div></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><p class="ttext">"Almanya'daki Türk cemaatimizde herkes Söz uygulamasını kullanıyor. Türkçe olması ve bu kadar kapsamlı olması büyük fark yarattı."</p><div class="tauthor">ALMANYA · Kilise üyesi</div></div>
-      <div class="tcard"><div class="tstars">★★★★★</div><p class="ttext">"İncil hakkında merak ediyordum ama nereden başlayacağımı bilmiyordum. Söz ile adım adım öğrendim. Bağlam notları çok değerli."</p><div class="tauthor">ANKARA · Yeni kullanıcı</div></div>
+<!-- MUSIC -->
+<section class="music-section" id="muzik">
+  <div class="music-inner">
+    <div class="reveal">
+      <span class="slabel">Ortam Müziği</span>
+      <h2 class="stitle">Okurken dinle.<br>Ruhu dinlendir.</h2>
+      <p class="sdesc">8 farklı ses ortamı. Tamamen telif hakkı serbest CC0. Odak modunda otomatik başlar, arka planda çalışır.</p>
+      <div style="margin-top:24px;padding:20px;background:var(--surface);border-radius:12px;border:0.5px solid var(--border)">
+        <div style="font-size:13px;color:var(--text2);font-style:italic;line-height:1.9">✓ Telif hakkı sıfır — CC0 lisanslı<br>✓ Uygulama içi, internet gerekmez<br>✓ Ses seviyesi ayarlanabilir<br>✓ Odak modunda otomatik başlar</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="music-tracks">
+        <div class="music-track"><div class="music-track-icon">🌙</div><div class="music-track-name">Sessizlik</div><div class="music-track-desc">Sadece Söz</div></div>
+        <div class="music-track"><div class="music-track-icon">🌧</div><div class="music-track-name">Yağmur</div><div class="music-track-desc">Hafif yağmur</div></div>
+        <div class="music-track"><div class="music-track-icon">🍃</div><div class="music-track-name">Esinti</div><div class="music-track-desc">Hafif rüzgar</div></div>
+        <div class="music-track"><div class="music-track-icon">🔥</div><div class="music-track-name">Kor Ateş</div><div class="music-track-desc">Şömine sesi</div></div>
+        <div class="music-track"><div class="music-track-icon">💧</div><div class="music-track-name">Dere</div><div class="music-track-desc">Akan su</div></div>
+        <div class="music-track"><div class="music-track-icon">🐦</div><div class="music-track-name">Kuşlar</div><div class="music-track-desc">Sabah sesi</div></div>
+        <div class="music-track"><div class="music-track-icon">🎹</div><div class="music-track-name">Piyano</div><div class="music-track-desc">Sakin melodi</div></div>
+        <div class="music-track"><div class="music-track-icon">🎻</div><div class="music-track-name">Yaylılar</div><div class="music-track-desc">Derin müzik</div></div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- CTA -->
-<div class="cta" id="indir">
-  <div class="reveal">
-    <h2 class="cta-title">Söz'ü bugün keşfet.</h2>
-    <p class="cta-desc">Ücretsiz indir, hemen başla.</p>
-    <div class="store-btns">
-      <a href="#" class="sbtn">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="#C4956A"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        <div><span class="sbtn-small">APP STORE</span><span class="sbtn-big">iOS</span></div>
-      </a>
-      <a href="#" class="sbtn">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="#C4956A"><path d="M3.18 23.76c.31.17.67.19 1.01.07l12.23-7.06-2.79-2.79-10.45 9.78zM.54 1.72C.2 2.07 0 2.6 0 3.28v17.44c0 .68.2 1.21.55 1.56l.08.08 9.77-9.77v-.23L.62 1.64l-.08.08zM20.54 10.27l-2.89-1.67-3.03 3.03 3.03 3.03 2.9-1.68c.83-.48.83-1.26-.01-1.71zM4.19.17L16.42 7.23l-2.79 2.79L3.18.24C3.53.12 3.89.14 4.19.17z"/></svg>
-        <div><span class="sbtn-small">GOOGLE PLAY</span><span class="sbtn-big">Android</span></div>
-      </a>
+<!-- LANG -->
+<section class="lang-section" id="diller">
+  <div class="lang-inner">
+    <div class="reveal">
+      <span class="slabel">Dil Desteği</span>
+      <h2 class="stitle">Türkiye'nin tüm toplulukları için.</h2>
+      <p class="sdesc" style="margin:0 auto">Dil değişince tüm arayüz — butonlar, menüler, mesajlar — anında değişir. 7 dil, tam destek.</p>
+    </div>
+    <div class="lang-pills reveal">
+      <div class="lang-pill"><span class="lang-flag">🇹🇷</span><div><div class="lang-name">Türkçe</div><div class="lang-native">Türkçe</div></div></div>
+      <div class="lang-pill"><span class="lang-flag">🇬🇧</span><div><div class="lang-name">İngilizce</div><div class="lang-native">English</div></div></div>
+      <div class="lang-pill"><span class="lang-flag">🇩🇪</span><div><div class="lang-name">Almanca</div><div class="lang-native">Deutsch</div></div></div>
+      <div class="lang-pill"><span class="lang-flag">🏳</span><div><div class="lang-name">Kürtçe</div><div class="lang-native">Kurdî</div></div></div>
+      <div class="lang-pill"><span class="lang-flag">🇦🇲</span><div><div class="lang-name">Ermenice</div><div class="lang-native">Հայերեն</div></div></div>
+      <div class="lang-pill"><span class="lang-flag">🇬🇷</span><div><div class="lang-name">Rumca</div><div class="lang-native">Ελληνικά</div></div></div>
+      <div class="lang-pill"><span class="lang-flag">🇸🇦</span><div><div class="lang-name">Arapça</div><div class="lang-native">العربية</div></div></div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- PREMIUM -->
+<section class="premium-section" id="premium">
+  <div class="reveal">
+    <span class="slabel">Premium</span>
+    <h2 class="stitle">Tüm özelliklerin kilidini aç.</h2>
+  </div>
+  <div class="premium-card reveal" style="margin-top:40px">
+    <div class="premium-features">
+      <div class="premium-feature"><div class="pf-check">✓</div>Sınırsız AI sohbet (Söz'e Sor)</div>
+      <div class="premium-feature"><div class="pf-check">✓</div>Sınırsız "Nasılsın?" analizi</div>
+      <div class="premium-feature"><div class="pf-check">✓</div>Tüm okuma planları</div>
+      <div class="premium-feature"><div class="pf-check">✓</div>Cloud sync (tüm cihazlar)</div>
+      <div class="premium-feature"><div class="pf-check">✓</div>8 ayet kartı teması</div>
+      <div class="premium-feature"><div class="pf-check">✓</div>Reklamsız deneyim</div>
+      <div class="premium-feature"><div class="pf-check">✓</div>Kilise grubu modu</div>
+      <div class="premium-feature"><div class="pf-check">✓</div>Öncelikli destek</div>
+    </div>
+    <div class="premium-price">
+      <div class="price-card"><div class="price-amount" style="font-size:17px">Aylık</div><div class="price-period">App Store fiyatı</div></div>
+      <div class="price-card featured"><div class="price-amount" style="font-size:17px">Yıllık</div><div class="price-period">App Store fiyatı</div><div class="price-save">Daha avantajlı</div></div>
+    </div>
+    <a href="#bekleme-listesi" class="btn-p" style="display:inline-flex;margin-bottom:20px">Uygulama Yayınlanınca Haber Ver →</a>
+    <div style="font-size:13px;color:var(--text3);font-style:italic">Premium almak istemiyor musun? <a href="https://sozapp.com/bagis" style="color:var(--accent);text-decoration:none">Bağış yaparak da destekleyebilirsin →</a></div>
+    <div style="display:flex;justify-content:center;gap:32px;margin-top:20px">
+      <div style="font-size:12px;color:var(--text3);text-align:center">🔒<br>Güvenli ödeme</div>
+      <div style="font-size:12px;color:var(--text3);text-align:center">↩<br>İstediğinde iptal</div>
+      <div style="font-size:12px;color:var(--text3);text-align:center">⭐<br>7 gün ücretsiz</div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="fbrand">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-      <svg width="22" height="22" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M27 11 C27 11 13 11 13 20 C13 29 27 29 27 29" stroke="#C4956A" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="1.8" stroke-linecap="round"/>
-        <circle cx="20" cy="20" r="2" fill="#C4956A"/>
-      </svg>
-      <span style="font-size:17px;font-weight:300;color:var(--text)">Söz</span>
+    <div class="fbrand-logo">
+      <svg width="22" height="22" viewBox="0 0 40 40" fill="none"><line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="2" stroke-linecap="round"/><path d="M27 11C27 11 13 11 13 20C13 29 27 29 27 29" stroke="#C4956A" stroke-width="2" stroke-linecap="round" fill="none"/><line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="20" r="2" fill="#C4956A"/></svg>
+      <span class="fbrand-name">Söz</span>
     </div>
-    <p>Türkçe konuşanlar için tasarlanmış en kapsamlı İncil okuma ve araştırma uygulaması.</p>
+    <p class="fbrand-desc">Türkçe İncil uygulaması. AI destekli, 7 dilli, Anadolu haritalı. Türkiye Hristiyanları için.</p>
+    <a href="/cdn-cgi/l/email-protection#deadb1a4b7b0bdb7b29eb9b3bfb7b2f0bdb1b3" class="fbrand-email"><span class="__cf_email__" data-cfemail="95e6faeffcfbf6fcf9d5f2f8f4fcf9bbf6faf8">[email&#160;protected]</span></a>
   </div>
-  <div class="fcol"><h5>Uygulama</h5><ul><li><a href="#ozellikler">Özellikler</a></li><li><a href="#harita">Anadolu Haritası</a></li><li><a href="#indir">İndir</a></li></ul></div>
-  <div class="fcol"><h5>Hakkında</h5><ul><li><a href="#hakkinda">Hakkımızda</a></li><li><a href="#" id="priv-link2">Gizlilik</a></li><li><a href="mailto:hello@sozapp.com">İletişim</a></li></ul></div>
-  <div class="fcol"><h5>İndir</h5><ul><li><a href="#indir">App Store</a></li><li><a href="#indir">Google Play</a></li></ul></div>
+  <div class="fcol">
+    <div class="fcol-title">Uygulama</div>
+    <a href="#ozellikler">Özellikler</a>
+    <a href="#oyunlar">Günlük Oyunlar</a>
+    <a href="#ezberleme">Ezberleme</a>
+    <a href="#nasilisin">Nasılsın?</a>
+    <a href="#harita">Anadolu Haritası</a>
+    <a href="#muzik">Ortam Müziği</a>
+  </div>
+  <div class="fcol">
+    <div class="fcol-title">Destek</div>
+    <a href="#premium">Premium</a>
+    <a href="https://sozapp.com/bagis">Bağış Yap</a>
+    <a href="#diller">Dil Desteği</a>
+    <a href="/cdn-cgi/l/email-protection#02716d786b6c616b6e42656f636b6e2c616d6f">İletişim</a>
+  </div>
+  <div class="fcol">
+    <div class="fcol-title">Yasal</div>
+    <a href="#" id="priv-link">Gizlilik Politikası</a>
+    <a href="/kosullar/">Kullanım Koşulları</a>
+    <a href="/hakkinda/">Hakkında</a>
+  </div>
+  <div class="fbot" style="grid-column:1/-1">
+    <span class="fbot-copy">© 2026 Söz · Tüm hakları saklıdır.</span>
+    <span class="fbot-verse">"Başlangıçta Söz vardı." — Yuhanna 1:1</span>
+  </div>
 </footer>
 
-<section id="gizlilik">
-  <span class="slabel">Gizlilik Politikası</span>
-  <h2 class="stitle" style="font-size:36px;margin-bottom:28px">Gizlilik Politikası</h2>
-  <div style="font-size:16px;color:var(--text2);line-height:1.85;display:flex;flex-direction:column;gap:22px">
-    <p><strong style="color:var(--text)">Son güncelleme:</strong> Mart 2026</p>
-    <p>Söz uygulaması gizliliğinize saygı duyar. Bu politika kişisel verilerinizin nasıl işlendiğini açıklar.</p>
-    <p><strong style="color:var(--text)">Toplanan Veriler</strong><br>Söz uygulaması hiçbir kişisel veriyi toplamaz veya üçüncü taraflarla paylaşmaz. Tüm notlar, vurgular ve favoriler yalnızca cihazınızda yerel olarak saklanır.</p>
-    <p><strong style="color:var(--text)">Analitik</strong><br>Uygulama performansını iyileştirmek için anonim kullanım istatistikleri toplanabilir. Bu veriler kişisel bilginizle ilişkilendirilemez.</p>
-    <p><strong style="color:var(--text)">Çocukların Gizliliği</strong><br>Uygulamamız 13 yaş altı çocuklara yönelik değildir.</p>
-    <p><strong style="color:var(--text)">İletişim</strong><br><a href="mailto:hello@sozapp.com" style="color:var(--accent)">hello@sozapp.com</a></p>
-  </div>
-</section>
-
-<div class="fbot">
-  <p>© 2026 Söz — Türkçe İncil. Tüm hakları saklıdır.</p>
-  <p>"Başlangıçta Söz vardı." — Yuhanna 1:1</p>
+<div id="gizlilik">
+  <h3>Gizlilik Politikası</h3>
+  <p>Söz uygulaması kullanıcı gizliliğini ciddiye alır.</p>
+  <p>"Nasılsın?" özelliğinde yazılan metinler yalnızca ayet önerisi için Groq AI API'sine iletilir ve hiçbir şekilde saklanmaz veya üçüncü taraflarla paylaşılmaz.</p>
+  <p>Notlar, vurgular, favoriler ve okuma ilerlemesi yalnızca cihazınızda veya isteğe bağlı Supabase bulut hesabınızda saklanır.</p>
+  <p>Söz uygulaması reklam göstermez. Sorularınız için: <a href="/cdn-cgi/l/email-protection#9deef2e7f4f3fef4f1ddfaf0fcf4f1b3fef2f0" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="d1a2beabb8bfb2b8bd91b6bcb0b8bdffb2bebc">[email&#160;protected]</span></a></p>
 </div>
 
-<script>
-// Reveal on scroll
-const obs = new IntersectionObserver(e => {
-  e.forEach(x => { if(x.isIntersecting) x.target.classList.add('vis') })
-}, {threshold: .05})
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
-// Immediately show elements already in viewport
-setTimeout(() => {
-  document.querySelectorAll('.reveal').forEach(el => {
-    const rect = el.getBoundingClientRect()
-    if (rect.top < window.innerHeight) el.classList.add('vis')
-  })
-}, 50)
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const reveals = document.querySelectorAll('.reveal')
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)} })
+}, {threshold:0.1})
+reveals.forEach(r => io.observe(r))
 
-// Nav scroll effect
-window.addEventListener('scroll', () => {
-  document.querySelector('nav').style.background =
-    window.scrollY > 50 ? 'rgba(10,10,8,0.96)' : 'rgba(10,10,8,0.88)'
+
+
+document.querySelectorAll('.phone-mock').forEach(p => {
+  p.addEventListener('mousemove', e => {
+    const rect = p.getBoundingClientRect()
+    const x = (e.clientX-rect.left)/rect.width-.5, y = (e.clientY-rect.top)/rect.height-.5
+    p.style.transform = `perspective(800px) rotateY(${x*6}deg) rotateX(${-y*4}deg) translateY(-4px)`
+  })
+  p.addEventListener('mouseleave', () => {p.style.transition='transform .4s ease';p.style.transform='';setTimeout(()=>p.style.transition='',400)})
 })
 
-// Map pin interaction
-function selectLoc(id) {
-  document.querySelectorAll('.loc-card').forEach(c => c.classList.remove('active'))
-  const card = document.querySelector(`.loc-card[data-id="${id}"]`)
-  if (card) {
-    card.classList.add('active')
-    card.scrollIntoView({behavior: 'smooth', block: 'nearest'})
-  }
-  document.querySelectorAll('.map-pin-group').forEach(g => {
-    const inner = g.querySelector('.map-pin-inner')
-    const outer = g.querySelector('.map-pin-outer')
-    if (!inner || !outer) return
-    if (g.dataset.id === id) {
-      inner.setAttribute('r', '6')
-      inner.setAttribute('fill', '#E8E0D0')
-      outer.setAttribute('r', '13')
-      outer.setAttribute('fill', 'rgba(196,149,80,0.25)')
-    } else {
-      inner.setAttribute('r', '4')
-      inner.setAttribute('fill', '#C4956A')
-      outer.setAttribute('r', '8')
-      outer.setAttribute('fill', 'rgba(196,149,80,0.15)')
+const pl = document.getElementById('priv-link')
+if(pl) pl.addEventListener('click', e => {e.preventDefault();const s=document.getElementById('gizlilik');s.classList.toggle('on');if(s.classList.contains('on'))s.scrollIntoView({behavior:'smooth'})})
+
+// ── WAITLIST ─────────────────────────────────────────────
+let selectedPlatform = 'both'
+document.querySelectorAll('.wp-opt').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.wp-opt').forEach(o => o.classList.remove('active'))
+    el.classList.add('active')
+    selectedPlatform = el.dataset.platform
+  })
+})
+
+const waitlistForm = document.getElementById('waitlist-form')
+if (waitlistForm) {
+  waitlistForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const emailInput = document.getElementById('waitlist-email')
+    const btn = document.getElementById('waitlist-submit')
+    const msg = document.getElementById('waitlist-msg')
+    const email = emailInput.value.trim()
+    if (!email) return
+
+    btn.disabled = true
+    btn.textContent = 'Gönderiliyor...'
+    msg.textContent = ''
+    msg.className = 'waitlist-msg'
+
+    try {
+      const res = await fetch('https://pjrcwvvkjmsscnnfvhug.supabase.co/rest/v1/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBqcmN3dnZram1zc2NubmZ2aHVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzNjM4NzgsImV4cCI6MjA5ODkzOTg3OH0.ZKNm5wtkR_H_sY8W7k0JDlPBFSRwHmzm6bGhFXrfm78',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ email, platform: selectedPlatform })
+      })
+      if (res.ok) {
+        msg.textContent = 'Teşekkürler! Yayınlanınca sana haber vereceğiz. 🎉'
+        msg.classList.add('ok')
+        emailInput.value = ''
+        btn.textContent = 'Katıldın ✓'
+      } else if (res.status === 409) {
+        msg.textContent = 'Bu e-posta zaten listede — merak etme, seni unutmadık.'
+        msg.classList.add('ok')
+        btn.textContent = 'Bekleme Listesine Katıl'
+        btn.disabled = false
+      } else {
+        throw new Error('request failed')
+      }
+    } catch (err) {
+      msg.textContent = 'Bir şeyler ters gitti, birazdan tekrar dener misin?'
+      msg.classList.add('err')
+      btn.textContent = 'Bekleme Listesine Katıl'
+      btn.disabled = false
     }
   })
 }
 
-document.querySelectorAll('.loc-card').forEach(c => {
-  c.addEventListener('click', () => selectLoc(c.dataset.id))
-})
-
-// Privacy toggle
-function togglePrivacy(e) {
-  e.preventDefault()
-  const s = document.getElementById('gizlilik')
-  s.classList.toggle('on')
-  if (s.classList.contains('on')) s.scrollIntoView({behavior: 'smooth'})
+// ── LEAFLET MAP ──────────────────────────────────────────
+const SOZ_LOCATIONS = {
+  efes:     { lat:37.9395, lng:27.3417, name:'Efes',                    ref:'Vahiy 2:1 · Efesliler', desc:"Pavlus'un 3 yıl kaldığı şehir. Yuhanna'nın son yurdu." },
+  izmir:    { lat:38.4192, lng:27.1287, name:'İzmir (Smyrna)',          ref:'Vahiy 2:8',             desc:'7 kiliseden biri. Ölüme dek sadık kal mesajıyla tanınır.' },
+  bergama:  { lat:39.1207, lng:27.1842, name:'Bergama (Pergamon)',      ref:'Vahiy 2:12',            desc:"Şeytan'ın tahtının bulunduğu yer olarak anılan şehir." },
+  tiyatira: { lat:38.9167, lng:27.8333, name:'Tiyatira',                ref:'Vahiy 2:18',            desc:"Mor boya tüccarı Lidya'nın memleketi." },
+  sart:     { lat:38.4881, lng:28.0453, name:'Sart (Sardis)',           ref:'Vahiy 3:1',             desc:'Ölü görünen ama iman kıvılcımı taşıyan kilise.' },
+  alasehir: { lat:38.3486, lng:28.5194, name:'Alaşehir (Philadelphia)', ref:'Vahiy 3:7',             desc:'7 kiliseden en çok övülen. Açık kapı vaat edilen sadık kilise.' },
+  laodikya: { lat:37.8333, lng:29.1167, name:'Laodikya',                ref:'Vahiy 3:14',            desc:'Ilık imanıyla uyarılan kilise.' },
+  antakya:  { lat:36.2021, lng:36.1603, name:'Antakya',                 ref:'Elç. İşl. 11:26',       desc:'"Hristiyan" adının ilk kullanıldığı şehir.' },
+  tarsus:   { lat:36.9163, lng:34.8953, name:'Tarsus',                  ref:'Elç. İşl. 22:3',        desc:"Pavlus'un doğduğu şehir." },
+  konya:    { lat:37.8667, lng:32.4833, name:'Konya (İkonium)',         ref:'Elç. İşl. 14:1',        desc:"Pavlus ve Barnaba'nın ilk yolculuklarında ziyaret ettiği şehir." },
+  ankara:   { lat:39.9334, lng:32.8597, name:'Ankara (Ankyra)',         ref:'Galatyalılar 1:2',      desc:'Galatyalılar Mektubu\'nun yazıldığı bölgenin merkezi.' },
+  patmos:   { lat:37.3211, lng:26.5472, name:'Patmos Adası',            ref:'Vahiy 1:9',             desc:"Yuhanna'nın sürgün edilip Vahiy'i yazdığı ada." },
 }
 
-const pl1 = document.getElementById('priv-link')
-const pl2 = document.getElementById('priv-link2')
-if (pl1) pl1.addEventListener('click', togglePrivacy)
-if (pl2) pl2.addEventListener('click', togglePrivacy)
+let sozMap=null, sozMarkers={}, activeLocId='efes'
+
+function initMap(){
+  const s=document.createElement('script')
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js'
+  s.onload=()=>{
+    sozMap=L.map('soz-map',{center:[38.9,35.5],zoom:6,zoomControl:true,attributionControl:true,scrollWheelZoom:false})
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:10,minZoom:5}).addTo(sozMap)
+    Object.entries(SOZ_LOCATIONS).forEach(([id,loc])=>{
+      const icon=L.divIcon({className:'',html:`<div class="soz-pin${id===activeLocId?' active-pin':''}" data-id="${id}"></div>`,iconSize:[36,36],iconAnchor:[18,18],popupAnchor:[0,-22]})
+      const marker=L.marker([loc.lat,loc.lng],{icon}).addTo(sozMap)
+        .bindPopup(`<div class="soz-popup-ref">${loc.ref}</div><div class="soz-popup-title">${loc.name}</div><div class="soz-popup-desc">${loc.desc}</div>`,{maxWidth:220,minWidth:180})
+      marker.on('click',()=>activateLocation(id))
+      sozMarkers[id]=marker
+    })
+    document.querySelectorAll('.loc-card').forEach(c=>c.addEventListener('click',()=>activateLocation(c.dataset.id)))
+    activateLocation('efes',false)
+  }
+  document.head.appendChild(s)
+}
+
+function activateLocation(id,flyTo=true){
+  const loc=SOZ_LOCATIONS[id];if(!loc)return;activeLocId=id
+  document.querySelectorAll('.loc-card').forEach(c=>c.classList.toggle('active',c.dataset.id===id))
+  document.querySelectorAll('.soz-pin').forEach(p=>p.classList.toggle('active-pin',p.dataset.id===id))
+  if(sozMap&&flyTo){sozMap.flyTo([loc.lat,loc.lng],8,{duration:1.2,easeLinearity:0.25});setTimeout(()=>{if(sozMarkers[id])sozMarkers[id].openPopup()},1300)}
+  else if(sozMap&&sozMarkers[id])sozMarkers[id].openPopup()
+  const card=document.querySelector(`.loc-card[data-id="${id}"]`)
+  if(card)card.scrollIntoView({behavior:'smooth',block:'nearest'})
+}
+
+const mapSection=document.getElementById('harita')
+if(mapSection){
+  const mo=new IntersectionObserver(entries=>{if(entries[0].isIntersecting&&!sozMap){initMap();mo.disconnect()}},{threshold:0.1})
+  mo.observe(mapSection)
+}
 </script>
 </body>
 </html>
