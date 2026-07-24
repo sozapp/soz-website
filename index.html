@@ -80,9 +80,11 @@ nav{position:sticky;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:f
 .nav-cta{padding:8px 18px;border:0.5px solid var(--accent)!important;border-radius:7px;color:var(--accent)!important;transition:all .2s!important;letter-spacing:.05em!important;text-transform:none!important}
 .nav-cta:hover{background:var(--accent2)!important}
 .nav-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:6px;line-height:0}
+#scroll-progress{position:absolute;bottom:-0.5px;left:0;height:2px;width:0%;background:var(--accent);pointer-events:none;transition:width .08s linear}
+@media (prefers-reduced-motion: reduce){#scroll-progress{transition:none}}
 
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden}
-.hero-glow{position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(196,149,80,0.06) 0%,transparent 65%);pointer-events:none}
+.hero-glow{position:absolute;top:35%;left:50%;transform:translate(-50%,calc(-50% + var(--parallax,0px)));width:800px;height:800px;background:radial-gradient(circle,rgba(196,149,80,0.06) 0%,transparent 65%);pointer-events:none;will-change:transform}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 16px;border:0.5px solid var(--border);border-radius:20px;font-size:10px;letter-spacing:.25em;color:var(--accent);margin-bottom:44px;animation:fadeUp .8s ease both;text-transform:uppercase}
 .pulse{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
@@ -110,7 +112,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:f
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 .phones-section{padding:80px 0;overflow:hidden;position:relative}
-.phones-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(196,149,80,0.05) 0%,transparent 70%);pointer-events:none}
+.phones-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,calc(-50% + var(--parallax,0px)));width:600px;height:600px;background:radial-gradient(circle,rgba(196,149,80,0.05) 0%,transparent 70%);pointer-events:none;will-change:transform}
 .phones-wrap{display:flex;gap:20px;align-items:center;justify-content:center;padding:0 48px;overflow-x:auto;scrollbar-width:none}
 .phones-wrap::-webkit-scrollbar{display:none}
 .phone-mock{flex-shrink:0;border-radius:28px;border:0.5px solid var(--border);overflow:hidden;position:relative;box-shadow:0 32px 80px rgba(0,0,0,0.5),0 0 0 0.5px var(--border2);transition:transform .3s ease}
@@ -191,7 +193,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:f
 .fnew{display:inline-block;font-size:8px;letter-spacing:.15em;color:var(--accent);background:var(--accent3);border:0.5px solid var(--border);border-radius:4px;padding:1px 6px;text-transform:uppercase;margin-bottom:8px}
 
 .mood-section{padding:80px 48px;position:relative}
-.mood-section::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(196,149,80,0.04) 0%,transparent 60%);pointer-events:none}
+.mood-section::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(196,149,80,0.04) 0%,transparent 60%);pointer-events:none;transform:translateY(var(--parallax,0px));will-change:transform}
 .mood-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;max-width:1100px;margin:0 auto}
 .mood-steps{display:flex;flex-direction:column;gap:20px;margin-top:32px}
 .mood-step{display:flex;gap:16px;align-items:flex-start}
@@ -271,7 +273,7 @@ blockquote cite{display:block;font-size:13px;color:var(--accent);letter-spacing:
 
 .premium-section{padding:80px 48px;max-width:900px;margin:0 auto;text-align:center}
 .premium-card{background:var(--surface);border-radius:20px;padding:48px;border:0.5px solid var(--border);position:relative;overflow:hidden}
-.premium-card::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(196,149,80,0.07) 0%,transparent 70%);pointer-events:none}
+.premium-card::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(196,149,80,0.07) 0%,transparent 70%);pointer-events:none;transform:translateY(var(--parallax,0px));will-change:transform}
 .premium-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:36px 0;text-align:left}
 .premium-feature{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--text2)}
 .pf-check{width:22px;height:22px;border-radius:50%;background:rgba(196,149,80,0.1);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;line-height:1;color:var(--accent);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
@@ -303,7 +305,7 @@ footer{border-top:0.5px solid var(--border2);padding:60px 48px 32px;display:grid
 
 .waitlist-section{padding:80px 48px;text-align:center}
 .waitlist-card{max-width:560px;margin:0 auto;background:var(--surface);border-radius:20px;padding:48px;border:0.5px solid var(--border);position:relative;overflow:hidden}
-.waitlist-card::before{content:'';position:absolute;top:-100px;left:-100px;width:280px;height:280px;background:radial-gradient(circle,rgba(196,149,80,0.07) 0%,transparent 70%);pointer-events:none}
+.waitlist-card::before{content:'';position:absolute;top:-100px;left:-100px;width:280px;height:280px;background:radial-gradient(circle,rgba(196,149,80,0.07) 0%,transparent 70%);pointer-events:none;transform:translateY(var(--parallax,0px));will-change:transform}
 .waitlist-form{display:flex;flex-direction:column;gap:12px;margin-top:32px}
 .waitlist-platforms{display:flex;gap:10px;justify-content:center;margin-bottom:4px}
 .wp-opt{display:flex;align-items:center;gap:8px;padding:10px 20px;border:0.5px solid var(--border);border-radius:8px;font-size:14px;color:var(--text2);cursor:pointer;transition:all .2s;background:var(--bg)}
@@ -364,6 +366,7 @@ footer{border-top:0.5px solid var(--border2);padding:60px 48px 32px;display:grid
   <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Menü" aria-expanded="false" aria-controls="nav-links-list">
     <svg id="nav-toggle-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
   </button>
+  <div id="scroll-progress"></div>
 </nav>
 
 <section class="hero">
@@ -956,6 +959,39 @@ if (navToggle && navLinks) {
   const langBtn = document.getElementById('lang-toggle')
   if (langBtn) langBtn.addEventListener('click', () => setNavOpen(false))
   window.addEventListener('resize', () => { if (window.innerWidth > 900) setNavOpen(false) })
+}
+
+// ── SCROLL PROGRESS ÇUBUĞU ──────────────────────────────
+const scrollProgressEl = document.getElementById('scroll-progress')
+function updateScrollProgress() {
+  if (!scrollProgressEl) return
+  const doc = document.documentElement
+  const scrollable = doc.scrollHeight - doc.clientHeight
+  const pct = scrollable > 0 ? (doc.scrollTop / scrollable) * 100 : 0
+  scrollProgressEl.style.width = pct + '%'
+}
+window.addEventListener('scroll', updateScrollProgress, { passive: true })
+updateScrollProgress()
+
+// ── DEKORATİF PARALLAX (azaltılmış hareket tercihine saygılı) ──
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+if (!prefersReducedMotion) {
+  const parallaxHosts = document.querySelectorAll('.hero, .phones-section, .mood-section, .premium-card, .waitlist-card')
+  let parallaxTicking = false
+  function updateParallax() {
+    const vh = window.innerHeight
+    parallaxHosts.forEach(el => {
+      const rect = el.getBoundingClientRect()
+      const centerOffset = (rect.top + rect.height / 2) - vh / 2
+      const py = Math.max(-24, Math.min(24, centerOffset * 0.06))
+      el.style.setProperty('--parallax', py.toFixed(1) + 'px')
+    })
+    parallaxTicking = false
+  }
+  window.addEventListener('scroll', () => {
+    if (!parallaxTicking) { requestAnimationFrame(updateParallax); parallaxTicking = true }
+  }, { passive: true })
+  updateParallax()
 }
 
 const reveals = document.querySelectorAll('.reveal')
