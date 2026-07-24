@@ -274,7 +274,7 @@ blockquote cite{display:block;font-size:13px;color:var(--accent);letter-spacing:
 .premium-section{padding:80px 48px;max-width:900px;margin:0 auto;text-align:center}
 .premium-card{background:var(--surface);border-radius:20px;padding:48px;border:0.5px solid var(--border);position:relative;overflow:hidden}
 .premium-card::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(196,149,80,0.07) 0%,transparent 70%);pointer-events:none;transform:translateY(var(--parallax,0px));will-change:transform}
-.premium-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:36px 0;text-align:left}
+.premium-features{display:grid;grid-template-columns:repeat(2,minmax(0,300px));justify-content:center;gap:12px 32px;margin:36px 0;text-align:left}
 .premium-feature{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--text2)}
 .pf-check{width:22px;height:22px;border-radius:50%;background:rgba(196,149,80,0.1);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;line-height:1;color:var(--accent);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 .premium-price{display:flex;justify-content:center;align-items:stretch;gap:20px;margin:28px 0}
