@@ -40,6 +40,20 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Söz ne zaman yayınlanacak?", "acceptedAnswer": {"@type": "Answer", "text": "Şu an aktif geliştirme aşamasındayız. App Store ve Google Play'de yayınlanır yayınlanmaz bekleme listesine katılan herkese e-posta ile haber vereceğiz."}},
+    {"@type": "Question", "name": "Uygulama tamamen ücretsiz mi?", "acceptedAnswer": {"@type": "Answer", "text": "Evet — tüm Yeni Ahit, günlük oyunlar, ezberleme sistemi ve temel özellikler ücretsiz. Premium; sınırsız AI sohbet, cloud sync ve ekstra temalar gibi ek özellikler sunar."}},
+    {"@type": "Question", "name": "Verilerim ve yazdıklarım güvende mi?", "acceptedAnswer": {"@type": "Answer", "text": "\"Nasılsın?\" özelliğinde yazdıkların yalnızca ayet önerisi üretmek için işlenir, saklanmaz. Notların ve favorilerin cihazında veya isteğe bağlı bulut hesabında tutulur, üçüncü taraflarla paylaşılmaz."}},
+    {"@type": "Question", "name": "Eski Ahit de var mı?", "acceptedAnswer": {"@type": "Answer", "text": "Şu an için Yeni Ahit'in tamamı (27 kitap, iki çeviri) mevcut. Eski Ahit içeriği üzerinde çalışıyoruz."}},
+    {"@type": "Question", "name": "Hangi cihazlarda kullanabilirim?", "acceptedAnswer": {"@type": "Answer", "text": "Söz, iOS (iPhone) ve Android'de yayınlanacak. Bekleme listesinde platformunu seçerek yayınlandığında ilk haberi alabilirsin."}},
+    {"@type": "Question", "name": "Uygulamada reklam olacak mı?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır. Söz hiçbir zaman reklam göstermez — ücretsiz sürümde de, Premium'da da."}}
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
 <style>
@@ -65,6 +79,7 @@ nav{position:sticky;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:f
 .nav-links a:hover{color:var(--accent)}
 .nav-cta{padding:8px 18px;border:0.5px solid var(--accent)!important;border-radius:7px;color:var(--accent)!important;transition:all .2s!important;letter-spacing:.05em!important;text-transform:none!important}
 .nav-cta:hover{background:var(--accent2)!important}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:6px;line-height:0}
 
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center;position:relative;overflow:hidden}
 .hero-glow{position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(196,149,80,0.06) 0%,transparent 65%);pointer-events:none}
@@ -236,6 +251,16 @@ blockquote cite{display:block;font-size:13px;color:var(--accent);letter-spacing:
 .vdiv-line{height:0.5px;background:var(--border2);margin:0 48px}
 
 .lang-section{padding:80px 48px;background:var(--surface);border-top:0.5px solid var(--border2);border-bottom:0.5px solid var(--border2)}
+
+.faq-section{padding:80px 48px;max-width:760px;margin:0 auto}
+.faq-list{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.faq-item{background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:18px 22px;transition:border-color .2s}
+.faq-item[open]{border-color:rgba(196,149,80,0.35)}
+.faq-item summary{cursor:pointer;font-size:16px;color:var(--text);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:20px;font-weight:300;color:var(--accent);flex-shrink:0;transition:transform .2s;line-height:1}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{font-size:14px;color:var(--text2);font-style:italic;line-height:1.75;margin-top:14px;padding-top:14px;border-top:0.5px solid var(--border2)}
 .lang-inner{max-width:900px;margin:0 auto;text-align:center}
 .lang-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:40px}
 .lang-pill{display:flex;align-items:center;gap:10px;padding:12px 20px;background:var(--bg);border:0.5px solid var(--border);border-radius:12px;transition:all .2s}
@@ -297,8 +322,16 @@ footer{border-top:0.5px solid var(--border2);padding:60px 48px 32px;display:grid
 .waitlist-count{font-size:12px;color:var(--text3);margin-top:20px;letter-spacing:.05em}
 
 @media(max-width:900px){
-  nav{padding:14px 20px}.nav-links{display:none}
-  .features-section,.games-section,.mood-section,.mem-section,.music-section,.lang-section,.premium-section,.map-section{padding:60px 20px}
+  nav{padding:14px 20px}
+  .nav-toggle{display:flex;align-items:center;justify-content:center}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(10,10,8,0.97);backdrop-filter:blur(24px);border-bottom:0.5px solid var(--border2);padding:8px 20px 24px;max-height:calc(100vh - 60px);overflow-y:auto}
+  .nav-links.open{display:flex}
+  .nav-links li{width:100%}
+  .nav-links li a{display:block;padding:16px 4px;font-size:14px;border-bottom:0.5px solid var(--border2)}
+  .nav-links li:last-child a,.nav-links li:nth-last-child(2) a{border-bottom:none}
+  .nav-links .nav-cta{display:block;text-align:center;margin-top:14px;padding:12px 18px}
+  .nav-links li:has(#lang-toggle){margin-top:10px}
+  .features-section,.games-section,.mood-section,.mem-section,.music-section,.lang-section,.premium-section,.map-section,.faq-section{padding:60px 20px}
   .stats-row{grid-template-columns:repeat(3,1fr);margin:60px 20px 0}
   .mood-inner,.mem-inner,.music-inner{grid-template-columns:1fr;gap:40px}
   .games-grid{grid-template-columns:1fr}
@@ -320,7 +353,7 @@ footer{border-top:0.5px solid var(--border2);padding:60px 48px 32px;display:grid
     <svg width="24" height="24" viewBox="0 0 40 40" fill="none"><line x1="13" y1="11" x2="27" y2="11" stroke="#C4956A" stroke-width="2" stroke-linecap="round"/><path d="M27 11C27 11 13 11 13 20C13 29 27 29 27 29" stroke="#C4956A" stroke-width="2" stroke-linecap="round" fill="none"/><line x1="13" y1="29" x2="27" y2="29" stroke="#C4956A" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="20" r="2" fill="#C4956A"/></svg>
     <span class="nav-logo-text">Söz</span>
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="nav-links-list">
     <li><a href="#ozellikler" data-tr="Özellikler" data-en="Features">Özellikler</a></li>
     <li><a href="#oyunlar" data-tr="Oyunlar" data-en="Games">Oyunlar</a></li>
     <li><a href="#harita" data-tr="Harita" data-en="Map">Harita</a></li>
@@ -328,6 +361,9 @@ footer{border-top:0.5px solid var(--border2);padding:60px 48px 32px;display:grid
     <li><a href="https://sozapp.com/bagis" class="nav-cta" data-tr="Bağış Yap" data-en="Donate">Bağış Yap</a></li>
     <li><button id="lang-toggle" class="nav-cta" type="button" style="cursor:pointer;font-family:inherit">EN</button></li>
   </ul>
+  <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Menü" aria-expanded="false" aria-controls="nav-links-list">
+    <svg id="nav-toggle-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
+  </button>
 </nav>
 
 <section class="hero">
@@ -748,6 +784,40 @@ footer{border-top:0.5px solid var(--border2);padding:60px 48px 32px;display:grid
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="faq-section" id="sss">
+  <div class="reveal" style="text-align:center;margin-bottom:40px">
+    <span class="slabel">Sıkça Sorulan Sorular</span>
+    <h2 class="stitle">Merak ettiklerin.</h2>
+  </div>
+  <div class="faq-list reveal">
+    <details class="faq-item">
+      <summary>Söz ne zaman yayınlanacak?</summary>
+      <p>Şu an aktif geliştirme aşamasındayız. App Store ve Google Play'de yayınlanır yayınlanmaz bekleme listesine katılan herkese e-posta ile haber vereceğiz.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Uygulama tamamen ücretsiz mi?</summary>
+      <p>Evet — tüm Yeni Ahit, günlük oyunlar, ezberleme sistemi ve temel özellikler ücretsiz. Premium; sınırsız AI sohbet, cloud sync ve ekstra temalar gibi ek özellikler sunar.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Verilerim ve yazdıklarım güvende mi?</summary>
+      <p>"Nasılsın?" özelliğinde yazdıkların yalnızca ayet önerisi üretmek için işlenir, saklanmaz. Notların ve favorilerin cihazında veya isteğe bağlı bulut hesabında tutulur, üçüncü taraflarla paylaşılmaz.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Eski Ahit de var mı?</summary>
+      <p>Şu an için Yeni Ahit'in tamamı (27 kitap, iki çeviri) mevcut. Eski Ahit içeriği üzerinde çalışıyoruz.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Hangi cihazlarda kullanabilirim?</summary>
+      <p>Söz, iOS (iPhone) ve Android'de yayınlanacak. Bekleme listesinde platformunu seçerek yayınlandığında ilk haberi alabilirsin.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Uygulamada reklam olacak mı?</summary>
+      <p>Hayır. Söz hiçbir zaman reklam göstermez — ücretsiz sürümde de, Premium'da da.</p>
+    </details>
+  </div>
+</section>
+
 <!-- PREMIUM -->
 <section class="premium-section" id="premium">
   <div class="reveal">
@@ -801,6 +871,7 @@ footer{border-top:0.5px solid var(--border2);padding:60px 48px 32px;display:grid
     <div class="fcol-title">Destek</div>
     <a href="#premium">Premium</a>
     <a href="https://sozapp.com/bagis">Bağış Yap</a>
+    <a href="#sss">SSS</a>
     <a href="#diller">Dil Desteği</a>
     <a href="/cdn-cgi/l/email-protection#02716d786b6c616b6e42656f636b6e2c616d6f">İletişim</a>
   </div>
@@ -867,6 +938,25 @@ function applyLang(lang) {
     })
   }
 })()
+
+// ── MOBİL HAMBURGER MENÜ ────────────────────────────────
+const navToggle = document.getElementById('nav-toggle')
+const navLinks = document.querySelector('.nav-links')
+const navToggleIcon = document.getElementById('nav-toggle-icon')
+const ICON_OPEN = '<path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/>'
+const ICON_CLOSE = '<path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/>'
+function setNavOpen(open) {
+  navLinks.classList.toggle('open', open)
+  navToggle.setAttribute('aria-expanded', String(open))
+  navToggleIcon.innerHTML = open ? ICON_CLOSE : ICON_OPEN
+}
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', () => setNavOpen(!navLinks.classList.contains('open')))
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNavOpen(false)))
+  const langBtn = document.getElementById('lang-toggle')
+  if (langBtn) langBtn.addEventListener('click', () => setNavOpen(false))
+  window.addEventListener('resize', () => { if (window.innerWidth > 900) setNavOpen(false) })
+}
 
 const reveals = document.querySelectorAll('.reveal')
 const io = new IntersectionObserver(entries => {
